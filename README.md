@@ -8,7 +8,7 @@ This application helps triathletes (or any manner of endurance
 athlete) to keep track of their workouts and training loads. It is able
 to record several types of information that would be useful in analyzing
 performance over time and allows an athlete to look back on their past
-data. 
+data. At the moment, this application supports recording swim, bike, and run workouts.
 
 Some examples of the data this application can record (with some of the
 most commonly used types in **bold**):
@@ -21,7 +21,7 @@ the workout title of running or swimming)
 - Distance (in km)
 - Training Load (minutes * perceived difficulty)
 
-All of this data will be in an integer format. Each workout can also have a title and a date, both in 
+All of this data will be in an integer format. Each workout can also have a type and a date, both in 
 string format. Each workout will be stored in a training log so that it can be viewed at a later date. 
 I recommend you create a new list of workouts (training log) for each new week, titling them with the dates 
 the list spans. 
