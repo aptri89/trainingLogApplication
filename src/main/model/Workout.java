@@ -6,9 +6,9 @@ public class Workout {
     private String type;                 // workout type (one of swim (s), bike (b), or run (r))
     private String date;                 // date of workout
     private int avgHeartRate;            // average heart rate
-    private int totalTime;               // time spent exercising in the workout
+    private int totalTime;               // time spent exercising in the workout (in minutes)
     private int perceivedDifficulty;     // on a scale of 1-10 where 10 is maximum effort
-    private int distance;                // distance covered in kilometers
+    private int distance;                // distance covered in kilometers (integer values only)
     private int trainingLoadValue;       // calculated by (totalTime * perceivedDifficulty), these values are
                                          // typically added together for a list of workouts to look at overall load
 
@@ -52,6 +52,10 @@ public class Workout {
     public void changeDistance(int newDistance) {
         this.distance = newDistance;
 
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public int getTrainingLoadValue() {
