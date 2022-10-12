@@ -1,20 +1,83 @@
 package model;
 
-public interface Workout {
+public class Workout {
 
-    public int calcTrainingLoadValue(int perceivedDifficulty, int totalTime);
-    public void changeHeartRate(int newHeartRate);
-    public void changeDate(String newDate);
-    public void changeTotalTime(int newTotalTime);
-    public void changePerceivedDifficulty(int newPerceivedDifficulty);
-    public void changeDistance(int newDistance);
+    private String name;                 // name of workout
+    private String type;                 // workout type (one of swim (s), bike (b), or run (r))
+    private String date;                 // date of workout
+    private int avgHeartRate;            // average heart rate
+    private int totalTime;               // time spent exercising in the workout
+    private int perceivedDifficulty;     // on a scale of 1-10 where 10 is maximum effort
+    private int distance;                // distance covered in kilometers
+    private int trainingLoadValue;       // calculated by (totalTime * perceivedDifficulty), these values are
+                                         // typically added together for a list of workouts to look at overall load
 
-    public int getTrainingLoadValue();
-    public int getHeartRate();
-    public int getDate();
-    public int getTotalTime();
-    public int getPerceivedDifficulty();
-    public int getDistance();
+    public Workout(String workoutName, String workoutDate, int workoutAvgHeartRate,
+                   int workoutTotalTime, int workoutPerceivedDifficulty, int workoutDistance) {
+
+        this.name = workoutName;
+        this.date = workoutDate;
+        this.avgHeartRate = workoutAvgHeartRate;
+        this.totalTime = workoutTotalTime;
+        this.perceivedDifficulty = workoutPerceivedDifficulty;
+        this.distance = workoutDistance;
+        this.trainingLoadValue = calcTrainingLoadValue(this.perceivedDifficulty, this.totalTime);
+
+    }
+
+
+    public int calcTrainingLoadValue(int perceivedDifficulty, int totalTime) {
+        return (perceivedDifficulty * totalTime);
+
+    }
+
+    public void changeHeartRate(int newHeartRate) {
+        this.avgHeartRate = newHeartRate;
+
+    }
+
+    public void changeDate(String newDate) {
+        this.date = newDate;
+
+    }
+
+    public void changeTotalTime(int newTotalTime) {
+        this.totalTime = newTotalTime;
+
+    }
+    public void changePerceivedDifficulty(int newPerceivedDifficulty) {
+        this.perceivedDifficulty = newPerceivedDifficulty;
+
+    }
+    public void changeDistance(int newDistance) {
+        this.distance = newDistance;
+
+    }
+
+    public int getTrainingLoadValue() {
+        return this.trainingLoadValue;
+
+    }
+    public int getHeartRate() {
+        return this.avgHeartRate;
+
+    }
+    public String getDate() {
+        return this.date;
+
+    }
+    public int getTotalTime() {
+        return this.totalTime;
+
+    }
+    public int getPerceivedDifficulty() {
+        return this.perceivedDifficulty;
+
+    }
+    public int getDistance() {
+        return this.distance;
+
+    }
 
 
 }
