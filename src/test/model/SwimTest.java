@@ -29,6 +29,7 @@ public class SwimTest {
 
     @Test
     public void testConvertSwimPaceToMinsAndSecs() {
+        assertEquals("1:40", testSwim.convertSwimPaceToMinsAndSecs(testSwim.getAvgSwimPace()));
 
     }
 
