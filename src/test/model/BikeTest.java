@@ -15,12 +15,23 @@ public class BikeTest {
             75, 27, 8, 40);
     }
 
+    @Test
     public void testBikeConstructor() {
 
         assertEquals("VO2 Max Session", testBike.getName());
         assertEquals("October 12, 2022", testBike.getDate());
         assertEquals(154, testBike.getHeartRate());
-        assertEquals(75, testBike.getAvgBikeSpeed());
+        assertEquals(75, testBike.getTotalTime());
+        assertEquals(27, testBike.getAvgBikeSpeed());
+        assertEquals(8, testBike.getPerceivedDifficulty());
+        assertEquals(40, testBike.getDistance());
 
+    }
+
+    @Test
+    public void testChangeBikeSpeed() {
+
+        testBike.changeBikeSpeed(22);
+        assertEquals(22, testBike.getAvgBikeSpeed());
     }
 }

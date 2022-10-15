@@ -8,12 +8,12 @@ public class Workout {
     private int avgHeartRate;            // average heart rate
     private int totalTime;               // time spent exercising in the workout (in minutes)
     private int perceivedDifficulty;     // on a scale of 1-10 where 10 is maximum effort
-    private int distance;                // distance covered in kilometers (integer values only)
+    private double distance;             // distance covered in kilometers
     private int trainingLoadValue;       // calculated by (totalTime * perceivedDifficulty), these values are
                                          // typically added together for a list of workouts to look at overall load
 
     public Workout(String workoutName, String workoutDate, int workoutAvgHeartRate,
-                   int workoutTotalTime, int workoutPerceivedDifficulty, int workoutDistance) {
+                   int workoutTotalTime, int workoutPerceivedDifficulty, double workoutDistance) {
 
         this.name = workoutName;
         this.date = workoutDate;
@@ -78,7 +78,7 @@ public class Workout {
         return this.perceivedDifficulty;
 
     }
-    public int getDistance() {
+    public double getDistance() {
         return this.distance;
 
     }

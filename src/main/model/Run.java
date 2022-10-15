@@ -16,6 +16,11 @@ public class Run extends Workout {
         this.avgRunPaceSecs = runPaceSecs;
     }
 
+    public String getCompleteRunPace(int avgRunPaceMins, int avgRunPaceSecs) {
+        return (avgRunPaceMins + ":" + avgRunPaceSecs);
+
+    }
+
 
     // MODIFIES: this
     // EFFECTS: changes the minutes component of average run pace
