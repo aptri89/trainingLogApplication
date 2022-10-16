@@ -20,10 +20,12 @@ public class TrainingLogTest {
             34, 46, 9, 10);
     private ArrayList<Workout> listOfWorkoutsForLogContainingTestTitle;
 
-
     @BeforeEach
     void runBefore() {
         testTrainingLog = new TrainingLog("October 17-23, 2022", listOfWorkoutsForLog);
+        listOfWorkoutsForLog.add(testSwimWorkout);
+        listOfWorkoutsForLog.add(testBikeWorkout);
+        listOfWorkoutsForLog.add(testRunWorkout);
     }
 
     @Test
@@ -45,10 +47,9 @@ public class TrainingLogTest {
     @Test
     public void testGetWorkoutsContainingTitle() {
         String title = "Test";
-        testTrainingLog.workoutsContainingTitle(title, )
-        ArrayList<Workout> testListWorkoutsForLog = new ArrayList<Workout>();
-        testListWorkoutsForLog.add(testSwimWorkout);
-        testListWorkoutsForLog.add(testBikeWorkout);
+        assertEquals(2, testTrainingLog.workoutsContainingTitle(title, listOfWorkoutsForLog).size());
+        assertEquals(testSwimWorkout, testTrainingLog.workoutsContainingTitle(title, listOfWorkoutsForLog).get(0));
+        assertEquals(testBikeWorkout, testTrainingLog.workoutsContainingTitle(title, listOfWorkoutsForLog).get(1));
 
     }
 
