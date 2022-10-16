@@ -9,7 +9,7 @@ public class Bike extends Workout {
     //           bikeSpeed > 0, bikePerceivedDifficulty is between 1 and 10, bikeDistance > 0
     // EFFECTS: creates new bike object with given parameters
     public Bike(String bikeName, String todaysDate, int bikeHR, int bikeTime, int bikeSpeed,
-                int bikePerceivedDifficulty, int bikeDistance) {
+                int bikePerceivedDifficulty, double bikeDistance) {
 
         super(bikeName, todaysDate, bikeHR, bikeTime, bikePerceivedDifficulty, bikeDistance);
         this.avgBikeSpeed = bikeSpeed;
