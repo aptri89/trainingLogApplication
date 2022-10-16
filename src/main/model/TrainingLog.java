@@ -13,8 +13,8 @@ public class TrainingLog {
 
     //EFFECTS: creates a new empty training log
     public TrainingLog(String title, ArrayList<Workout> listOfWorkoutForLog) {
-      this.title = title;
-      this.trainingLog = listOfWorkoutForLog;
+        this.title = title;
+        this.trainingLog = listOfWorkoutForLog;
 
     }
 

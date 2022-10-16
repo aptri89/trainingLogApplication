@@ -20,9 +20,9 @@ public class TrainingLogApp {
         boolean keepGoing = true;
         String command = null;
 
+        while (keepGoing) {
 
-
-
+        }
 
     }
 

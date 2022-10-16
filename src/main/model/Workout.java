@@ -3,7 +3,6 @@ package model;
 public class Workout {
 
     private String name;                 // name of workout
-    private String type;                 // workout type (one of swim (s), bike (b), or run (r))
     private String date;                 // date of workout
     private int avgHeartRate;            // average heart rate
     private int totalTime;               // time spent exercising in the workout (in minutes)
@@ -45,10 +44,12 @@ public class Workout {
         this.totalTime = newTotalTime;
 
     }
+
     public void changePerceivedDifficulty(int newPerceivedDifficulty) {
         this.perceivedDifficulty = newPerceivedDifficulty;
 
     }
+
     public void changeDistance(int newDistance) {
         this.distance = newDistance;
 
@@ -62,22 +63,27 @@ public class Workout {
         return this.trainingLoadValue;
 
     }
+
     public int getHeartRate() {
         return this.avgHeartRate;
 
     }
+
     public String getDate() {
         return this.date;
 
     }
+
     public int getTotalTime() {
         return this.totalTime;
 
     }
+
     public int getPerceivedDifficulty() {
         return this.perceivedDifficulty;
 
     }
+
     public double getDistance() {
         return this.distance;
 
