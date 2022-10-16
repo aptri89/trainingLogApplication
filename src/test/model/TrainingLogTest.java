@@ -43,7 +43,18 @@ public class TrainingLogTest {
 
     }
 
-    // fix this test, so confused
+    @Test
+    public void testAddWorkoutMultipleTimes() {
+        testTrainingLog.addWorkout(testSwimWorkout, listOfWorkoutsForLog);
+        testTrainingLog.addWorkout(testBikeWorkout, listOfWorkoutsForLog);
+        testTrainingLog.addWorkout(testRunWorkout, listOfWorkoutsForLog);
+        assertEquals(3, listOfWorkoutsForLog.size());
+        assertEquals(testSwimWorkout, listOfWorkoutsForLog.get(0));
+        assertEquals(testBikeWorkout, listOfWorkoutsForLog.get(1));
+        assertEquals(testRunWorkout, listOfWorkoutsForLog.get(2));
+    }
+
+
     @Test
     public void testGetWorkoutsContainingTitle() {
         String title = "Test";
