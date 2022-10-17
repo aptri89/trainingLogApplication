@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TrainingLogTest {
 
     private TrainingLog testTrainingLog;
-    private ArrayList<Workout> listOfWorkoutsForLog;
+    private ArrayList<Workout> listOfWorkoutsForLog = new ArrayList<Workout>();
     private Swim testSwimWorkout = new Swim("Test Swim", "October 15, 2022", 123,
             51, 120, 4, 2.3);
     private Bike testBikeWorkout = new Bike ("Test Bike", "October 17, 2022", 145,
@@ -37,6 +37,9 @@ public class TrainingLogTest {
 
     @Test
     public void testAddWorkout() {
+        testTrainingLog.trainingLog.remove(0);
+        testTrainingLog.trainingLog.remove(0);
+        testTrainingLog.trainingLog.remove(0);
         testTrainingLog.addWorkout(testSwimWorkout, listOfWorkoutsForLog);
         assertEquals(1, listOfWorkoutsForLog.size());
         assertEquals(testSwimWorkout, listOfWorkoutsForLog.get(0));
@@ -48,7 +51,7 @@ public class TrainingLogTest {
         testTrainingLog.addWorkout(testSwimWorkout, listOfWorkoutsForLog);
         testTrainingLog.addWorkout(testBikeWorkout, listOfWorkoutsForLog);
         testTrainingLog.addWorkout(testRunWorkout, listOfWorkoutsForLog);
-        assertEquals(3, listOfWorkoutsForLog.size());
+        assertEquals(6, listOfWorkoutsForLog.size());
         assertEquals(testSwimWorkout, listOfWorkoutsForLog.get(0));
         assertEquals(testBikeWorkout, listOfWorkoutsForLog.get(1));
         assertEquals(testRunWorkout, listOfWorkoutsForLog.get(2));

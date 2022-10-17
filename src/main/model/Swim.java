@@ -15,7 +15,7 @@ public class Swim extends Workout {
     }
 
     public String convertSwimPaceToMinsAndSecs(int avgSwimPace) {
-        int swimMins = avgSwimPace % 60;
+        int swimMins = avgSwimPace / 60;
         int swimSecs = avgSwimPace - (swimMins * 60);
 
         return (swimMins + ":" + swimSecs);
