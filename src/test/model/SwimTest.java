@@ -33,5 +33,11 @@ public class SwimTest {
 
     }
 
+    @Test
+    public void testChangeSwimPace() {
+        testSwim.changeSwimPace(120);
+        assertEquals(120, testSwim.getAvgSwimPace());
+    }
+
 
 }
