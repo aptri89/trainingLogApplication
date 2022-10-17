@@ -36,8 +36,8 @@ thought process behind building something I use every day.
 - As a user, I want to be able to add new workouts to a training log (a list
 of workouts).
 - As a user, I want to be able to create a new training log add workouts to it.
-- As a user, I want to be able to change my distance after inputting it.
-- As a user, I want to be able to select a training log and view the workouts in it. 
+- As a user, I want to be able to change my workout title, date or distance after inputting it.
+- As a user, I want to be able to view the workouts in my training log. 
 - As a user, I want to be able to see how many workouts with a certain title my training log contains.
   (ie. how many workouts titled "Running" are contained in my current training log)
 

@@ -2,8 +2,8 @@ package model;
 
 public class Workout {
 
-    private String name;                 // name of workout
-    private String date;                 // date of workout
+    private String name;                 // name of workout with no spaces
+    private String date;                 // date of workout with no spaces
     private int avgHeartRate;            // average heart rate
     private int totalTime;               // time spent exercising in the workout (in minutes)
     private int perceivedDifficulty;     // on a scale of 1-10 where 10 is maximum effort
@@ -34,27 +34,14 @@ public class Workout {
         this.name = newTitle;
     }
 
-    public void changeHeartRate(int newHeartRate) {
-        this.avgHeartRate = newHeartRate;
-
-    }
 
     public void changeDate(String newDate) {
         this.date = newDate;
 
     }
 
-    public void changeTotalTime(int newTotalTime) {
-        this.totalTime = newTotalTime;
 
-    }
-
-    public void changePerceivedDifficulty(int newPerceivedDifficulty) {
-        this.perceivedDifficulty = newPerceivedDifficulty;
-
-    }
-
-    public void changeDistance(int newDistance) {
+    public void changeDistance(double newDistance) {
         this.distance = newDistance;
 
     }
@@ -62,6 +49,7 @@ public class Workout {
     public String getTitle() {
         return this.name;
     }
+
 
     public int getTrainingLoadValue() {
         return this.trainingLoadValue;

@@ -10,15 +10,15 @@ public class RunTest {
     private Run testRun;
 
     @BeforeEach
-    void runBefore() {testRun = new Run("Track Run", "October 15, 2022", 160,
+    void runBefore() {testRun = new Run("TrackRun", "October15,2022", 160,
             4, 45, 51, 9, 10);
     }
 
     @Test
     public void testRunConstructor() {
 
-        assertEquals("Track Run", testRun.getTitle());
-        assertEquals("October 15, 2022", testRun.getDate());
+        assertEquals("TrackRun", testRun.getTitle());
+        assertEquals("October15,2022", testRun.getDate());
         assertEquals(160, testRun.getHeartRate());
         assertEquals(4, testRun.getAvgRunPaceMins());
         assertEquals(45, testRun.getAvgRunPaceSecs());
@@ -32,6 +32,15 @@ public class RunTest {
     public void testGetCompleteRunPace() {
         assertEquals("4:45",
                 testRun.getCompleteRunPace(testRun.getAvgRunPaceMins(), testRun.getAvgRunPaceSecs()));
+    }
+
+    @Test
+    public void testRunSetters() {
+        testRun.changeRunPaceMins(5);
+        assertEquals(5, testRun.getAvgRunPaceMins());
+
+        testRun.changeRunPaceSecs(4);
+        assertEquals(4, testRun.getAvgRunPaceSecs());
     }
 
 

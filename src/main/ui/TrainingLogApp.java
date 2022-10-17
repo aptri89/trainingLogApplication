@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 // application for tracking workouts
-
+// additional functionality to change all workout parameters will be added soon
 public class TrainingLogApp {
     private Scanner input;
     private TrainingLog defaultLog;
@@ -43,12 +43,12 @@ public class TrainingLogApp {
                 command = input.next();
                 command = command.toLowerCase();
                 processCommand2(command);
+                thirdScreen();
                 command = input.next();
                 command = command.toLowerCase();
                 processCommand3(command);
             }
         }
-
         System.out.print("\nHappy training!");
     }
 
@@ -64,8 +64,6 @@ public class TrainingLogApp {
             createRun();
         } else if (command.equals("t")) {
             createTrainingLog(defaultWorkout);
-        } else {
-            System.out.print("\nSelection not valid ...");
         }
 
     }
@@ -80,30 +78,37 @@ public class TrainingLogApp {
 
     }
 
+
+    private void addWorkoutToATrainingLog(Workout w, String yesOrNo) {
+        if (yesOrNo.equals("y")) {
+            createTrainingLog(w);
+        } else if (yesOrNo.equals("n")) {
+            defaultLog.addWorkout(w, defaultList);
+        } else {
+            System.out.print("Selection not valid...");
+        }
+    }
+
     // MODIFIES: this
     // EFFECTS: determines next program step using user input
     private void processCommand2(String command) {
         if (command.equals("y")) {
             int size = defaultList.size();
             Workout currentWorkout = defaultList.get(size - 1);
-            System.out.print("\nChoose one of the following options to change: ");
-            System.out.print("\nTitle -> t\nDate -> d\nDistance -> k");
-            if (input.next().equals("t")) {
+            System.out.print("\nChoose one of these options to change: \nTitle -> t\nDate -> d\nDistance -> k\n");
+            String thisInput = input.next();
+            if (thisInput.equals("t")) {
                 System.out.print("\nEnter new title: ");
                 currentWorkout.changeTitle(input.next());
-            } else if (input.next().equals("d")) {
+            } else if (thisInput.equals("d")) {
                 System.out.print("\nEnter new date: ");
                 currentWorkout.changeDate(input.next());
-            } else if (input.next().equals("k")) {
+            } else if (thisInput.equals("k")) {
                 System.out.print("\nEnter new distance: ");
-                currentWorkout.changeDistance(input.nextInt());
+                currentWorkout.changeDistance(input.nextDouble());
             }
-        } else if (command.equals("n")) {
-            System.out.print("\nWould you like to view the workouts in your current training log? ");
-            System.out.print("\ny -> yes");
-            System.out.print("\nn -> no, I would like to return to the home screen");
         } else {
-            System.out.print("\nSelection is invalid, returning to home screen...");
+            System.out.print("No data changed");
         }
     }
 
@@ -111,7 +116,7 @@ public class TrainingLogApp {
     private void secondScreen() {
         System.out.print("\nWould you like to edit any data for your workout?");
         System.out.print("\ny -> yes");
-        System.out.print("\nn -> no");
+        System.out.print("\nn -> no\n");
 
 
     }
@@ -119,16 +124,38 @@ public class TrainingLogApp {
     // MODIFIES: this
     // EFFECTS: determines next program step using user input
     private void processCommand3(String command) {
-        if (command.equals("y")) {
+        if (command.equals("v")) {
             for (Workout w: defaultList) {
-                System.out.print(w.getDate() + "->" + w.getTitle());
+                System.out.print("\n" + w.getDate() + "->" + w.getTitle() + "\n");
             }
+            System.out.print("\nPress v to view workouts again, s to search workouts or r for the home screen");
+            String thisInput = input.next();
+            processCommand3(thisInput);
+        } else if (command.equals("s")) {
+            System.out.print("\nEnter search term to search workout titles: \n");
+            String title = input.next();
+            ArrayList<Workout> tempList = new ArrayList<>();
+            tempList = TrainingLog.workoutsContainingTitle(title, defaultList);
+            System.out.print("\nAll workouts containing search term shown below: \n");
+            for (Workout w: tempList) {
+                System.out.print(w.getDate() + "->" + w.getTitle() + "\n");
+            }
+            System.out.print("\nPress s to search workouts again, v to view workouts or r for the home screen\n");
+            String thisInput = input.next();
+            processCommand3(thisInput);
+
         } else {
             System.out.print("\nReturning to home screen ...");
         }
 
     }
 
+    private void thirdScreen() {
+        System.out.print("\nOther options are presented below:");
+        System.out.print("\nv -> view my workouts");
+        System.out.print("\ns -> search my workouts");
+        System.out.print("\nr -> return to home screen\n");
+    }
 
 
     // MODIFIES: this
@@ -142,96 +169,85 @@ public class TrainingLogApp {
     // MODIFIES: this
     // EFFECTS: creates a Swim object based on user input and adds to selected training log
     private void createSwim() {
-        System.out.print("\nEnter workout data for the following categories: \nTitle for swim workout: ");
+        System.out.print("\nEnter workout data for the following categories: \nTitle for swim workout (no spaces): ");
         String name = input.next();
-        System.out.print("\nDate of swim workout: ");
+        System.out.print("\nDate of swim workout (no spaces): ");
         String date = input.next();
         System.out.print("\nAverage swim heart rate: ");
         int swimHR = input.nextInt();
         System.out.print("\nTotal time spent swimming: ");
         int swimTime = input.nextInt();
-        System.out.print("\nTotal distance swam in kilometers: ");
-        double swimDistance = input.nextDouble();
         System.out.print("\nAverage pace per 100m in seconds: ");
         int avgSwimPace = input.nextInt();
         System.out.print("\nOn a scale of 1-10, how difficult was that swim? ");
         int swimPerceivedDifficulty = input.nextInt();
+        System.out.print("\nTotal distance swam in kilometers: ");
+        double swimDistance = input.nextDouble();
 
         Swim newSwim = new Swim(name, date, swimHR, swimTime, avgSwimPace, swimPerceivedDifficulty, swimDistance);
 
         System.out.print("\nWould you like to create a new training log to add this workout to?\ny -> yes\nn -> no");
+        String yesOrNo = input.next();
 
-        if (input.next().equals("y")) {
-            createTrainingLog(newSwim);
-        } else if (input.next().equals("n")) {
-            defaultLog.addWorkout(newSwim, defaultList);
-        } else {
-            System.out.print("Selection not valid...");
-        }
+        addWorkoutToATrainingLog(newSwim, yesOrNo);
+
     }
 
 
     // MODIFIES: this
     // EFFECTS: creates a Bike object based on user input and adds to selected training log
     private void createBike() {
-        System.out.print("Enter workout data for the following categories: \nTitle for bike workout: ");
+        System.out.print("Enter workout data for the following categories: \nTitle for bike workout (no spaces): ");
         String name = input.next();
-        System.out.print("\nDate of bike workout: ");
+        System.out.print("\nDate of bike workout (no spaces): ");
         String date = input.next();
         System.out.print("\nAverage bike heart rate: ");
         int bikeHR = input.nextInt();
         System.out.print("\nTotal time spent biking: ");
         int bikeTime = input.nextInt();
-        System.out.print("\nTotal distance biked in kilometers: ");
-        double bikeDistance = input.nextDouble();
         System.out.print("\nAverage speed in kilometers an hour: ");
-        int avgBikeSpeed = input.nextInt();
+        double avgBikeSpeed = input.nextDouble();
         System.out.print("\nOn a scale of 1-10, how difficult was that bike? ");
         int bikePerceivedDifficulty = input.nextInt();
+        System.out.print("\nTotal distance biked in kilometers: ");
+        double bikeDistance = input.nextDouble();
 
         Bike newBike = new Bike(name, date, bikeHR, bikeTime, avgBikeSpeed,bikePerceivedDifficulty, bikeDistance);
 
         System.out.println("Would you like to create a new training log to add this workout to?\ny -> yes\nn -> no");
+        String yesOrNo = input.next();
 
-        if (input.next().equals("y")) {
-            createTrainingLog(newBike);
-        } else if (input.next().equals("n")) {
-            defaultLog.addWorkout(newBike, defaultList);
-        } else {
-            System.out.print("Selection not valid...");
-        }
+        addWorkoutToATrainingLog(newBike, yesOrNo);
     }
 
 
     // MODIFIES: this
     // EFFECTS: creates a Run object based on user input and adds to selected training log
     private void createRun() {
-        System.out.print("Enter workout data for the following categories: \nTitle for run workout: ");
+        System.out.print("Enter workout data for the following categories: \nTitle for run workout (no spaces): ");
         String name = input.next();
-        System.out.print("\nDate of run workout: ");
+        System.out.print("\nDate of run workout (no spaces): ");
         String date = input.next();
         System.out.print("\nAverage run heart rate: ");
         int runHR = input.nextInt();
-        System.out.print("\nTotal time spent running: ");
-        int runTime = input.nextInt();
-        System.out.print("\nTotal distance ran in kilometers (up to 2 decimal points): ");
-        double runDistance = input.nextDouble();
         System.out.print("\nAverage run pace per kilometer (minutes component): ");
         int avgRunPaceMins = input.nextInt();
         System.out.print("\nAverage run pace per kilometer (seconds component): ");
         int avgRunPaceSecs = input.nextInt();
+        System.out.print("\nTotal time spent running: ");
+        int runTime = input.nextInt();
         System.out.print("\nOn a scale of 1-10, how difficult was that run? ");
         int runPD = input.nextInt();
+        System.out.print("\nTotal distance ran in kilometers (up to 2 decimal points): ");
+        double runDistance = input.nextDouble();
 
         Run newRun = new Run(name, date, runHR, avgRunPaceMins, avgRunPaceSecs, runTime, runPD, runDistance);
 
         System.out.print("\nWould you like to create a new training log to add this workout to?\ny -> yes\nn -> no\n");
+        String yesOrNo = input.next();
 
-        if (input.next().equals("y")) {
-            createTrainingLog(newRun);
-        } else if (input.next().equals("n")) {
-            defaultLog.addWorkout(newRun, defaultList);
-        }
+        addWorkoutToATrainingLog(newRun, yesOrNo);
+
     }
 
 
@@ -241,19 +257,13 @@ public class TrainingLogApp {
     private void createTrainingLog(Workout w) {
         ArrayList<Workout> listOfWorkoutsForLog = new ArrayList<Workout>();
         listOfWorkoutsForLog.add(w);
-        System.out.print("What would you like to name this training log?\n");
+        System.out.print("What would you like to name this training log? (no spaces)\n");
         String title = input.next();
         TrainingLog tlObject = new TrainingLog(title, listOfWorkoutsForLog);
         defaultLog = tlObject;
         defaultList = tlObject.getTrainingLog();
 
     }
-
-
-
-
-
-
 
 
 }

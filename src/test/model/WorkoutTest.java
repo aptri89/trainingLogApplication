@@ -11,14 +11,14 @@ public class WorkoutTest {
 
     @BeforeEach
     void runBefore() {
-        testWorkout = new Workout("Testing", "September 14, 2022", 100,
+        testWorkout = new Workout("Testing", "September14,2022", 100,
                 25, 3, 1);
     }
 
     @Test
     public void testWorkoutConstructor() {
         assertEquals("Testing", testWorkout.getTitle());
-        assertEquals("September 14, 2022", testWorkout.getDate());
+        assertEquals("September14,2022", testWorkout.getDate());
         assertEquals(100, testWorkout.getHeartRate());
         assertEquals(25, testWorkout.getTotalTime());
         assertEquals(3, testWorkout.getPerceivedDifficulty());
@@ -31,5 +31,11 @@ public class WorkoutTest {
         int testTrainingLoadValue = (testWorkout.getPerceivedDifficulty() * testWorkout.getTotalTime());
         assertEquals(testTrainingLoadValue,
                 testWorkout.calcTrainingLoadValue(testWorkout.getPerceivedDifficulty(), testWorkout.getTotalTime()));
+    }
+
+    @Test
+    public void testGetTrainingLoadValue() {
+        testWorkout.calcTrainingLoadValue(testWorkout.getPerceivedDifficulty(), testWorkout.getTotalTime());
+        assertEquals(75, testWorkout.getTrainingLoadValue());
     }
 }

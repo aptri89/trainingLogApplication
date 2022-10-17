@@ -44,9 +44,5 @@ public class Run extends Workout {
         return this.avgRunPaceSecs;
     }
 
-    // EFFECTS: returns average run pace in a string format
-    public String getAvgRunPace() {
-        return (getAvgRunPaceMins() + ":" + getAvgRunPaceSecs());
-    }
 
 }
