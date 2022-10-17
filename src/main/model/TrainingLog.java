@@ -1,10 +1,7 @@
 package model;
 
-import com.sun.jdi.ArrayType;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TrainingLog {
 
@@ -29,7 +26,7 @@ public class TrainingLog {
     // REQUIRES: title is not an empty string, tl is not an empty list
     // EFFECTS: returns a list of workouts that have a name equal to title
     public static ArrayList<Workout> workoutsContainingTitle(String title, ArrayList<Workout> tl) {
-        ArrayList<Workout> specificLog = new ArrayList<Workout>();
+        ArrayList<Workout> specificLog = new ArrayList<>();
         for (Workout w: tl) {
             if (w.getTitle().contains(title)) {
                 specificLog.add(w);
