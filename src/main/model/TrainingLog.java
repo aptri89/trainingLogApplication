@@ -29,7 +29,7 @@ public class TrainingLog {
     public ArrayList<Workout> workoutsContainingTitle(String title, ArrayList<Workout> tl) {
         ArrayList<Workout> specificLog = new ArrayList<Workout>();
         for (Workout w: tl) {
-            if (w.getName().contains(title)) {
+            if (w.getTitle().contains(title)) {
                 specificLog.add(w);
             }
         }

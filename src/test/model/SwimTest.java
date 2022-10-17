@@ -17,7 +17,7 @@ public class SwimTest {
     @Test
     public void testSwimConstructor() {
 
-        assertEquals("Endurance Progression", testSwim.getName());
+        assertEquals("Endurance Progression", testSwim.getTitle());
         assertEquals("October 20, 2022", testSwim.getDate());
         assertEquals(120, testSwim.getHeartRate());
         assertEquals(56, testSwim.getTotalTime());

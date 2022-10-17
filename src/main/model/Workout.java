@@ -30,6 +30,10 @@ public class Workout {
 
     }
 
+    public void changeTitle(String newTitle) {
+        this.name = newTitle;
+    }
+
     public void changeHeartRate(int newHeartRate) {
         this.avgHeartRate = newHeartRate;
 
@@ -55,7 +59,7 @@ public class Workout {
 
     }
 
-    public String getName() {
+    public String getTitle() {
         return this.name;
     }
 

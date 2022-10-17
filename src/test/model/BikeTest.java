@@ -18,7 +18,7 @@ public class BikeTest {
     @Test
     public void testBikeConstructor() {
 
-        assertEquals("VO2 Max Session", testBike.getName());
+        assertEquals("VO2 Max Session", testBike.getTitle());
         assertEquals("October 12, 2022", testBike.getDate());
         assertEquals(154, testBike.getHeartRate());
         assertEquals(75, testBike.getTotalTime());

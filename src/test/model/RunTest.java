@@ -17,7 +17,7 @@ public class RunTest {
     @Test
     public void testRunConstructor() {
 
-        assertEquals("Track Run", testRun.getName());
+        assertEquals("Track Run", testRun.getTitle());
         assertEquals("October 15, 2022", testRun.getDate());
         assertEquals(160, testRun.getHeartRate());
         assertEquals(4, testRun.getAvgRunPaceMins());

@@ -17,7 +17,7 @@ public class WorkoutTest {
 
     @Test
     public void testWorkoutConstructor() {
-        assertEquals("Testing", testWorkout.getName());
+        assertEquals("Testing", testWorkout.getTitle());
         assertEquals("September 14, 2022", testWorkout.getDate());
         assertEquals(100, testWorkout.getHeartRate());
         assertEquals(25, testWorkout.getTotalTime());
