@@ -107,7 +107,7 @@ public class TrainingLogApp {
                 System.out.print("\nEnter new distance: ");
                 currentWorkout.changeDistance(input.nextDouble());
             }
-        } else {
+        } else if (command.equals("n")) {
             System.out.print("No data changed");
         }
     }
