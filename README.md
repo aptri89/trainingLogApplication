@@ -40,6 +40,8 @@ of workouts).
 - As a user, I want to be able to view the workouts in my training log. 
 - As a user, I want to be able to see how many workouts with a certain title my training log contains.
   (ie. how many workouts titled "Running" are contained in my current training log)
+- As a user, I want to be able to save my training log to file.
+- As a user, I want to be able to reload my saved training log with all data intact and continue to add workouts to it. 
 
 
  
