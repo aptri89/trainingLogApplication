@@ -1,8 +1,9 @@
 package persistence;
 
-// add citation for JsonWriter
-// Represents a writer that writes JSON representation of TrainingLog to file
+// Method was taken from JsonWriter in :
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 
+// Represents a writer that writes JSON representation of TrainingLog to file
 import model.TrainingLog;
 import org.json.JSONObject;
 

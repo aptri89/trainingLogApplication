@@ -1,6 +1,9 @@
 package model;
 
+// Method taken from Workroom in:
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
@@ -50,9 +53,19 @@ public class TrainingLog implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("title", title);
-
-
+        json.put("trainingLog", workoutsToJson());
         return json;
+    }
+
+    // EFFECTS: returns workouts in this TrainingLog as a JSON array
+    private JSONArray workoutsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Workout w : trainingLog) {
+            jsonArray.put(w.toJson());
+        }
+
+        return jsonArray;
     }
 
 }

@@ -35,6 +35,13 @@ public class Swim extends Workout {
         return this.avgSwimPace;
     }
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("swimPace", avgSwimPace);
+        return json;
+    }
+
 
 
 

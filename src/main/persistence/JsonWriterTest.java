@@ -1,6 +1,13 @@
 package persistence;
 
+// Method was taken from JsonWriterTest in:
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+
+import model.TrainingLog;
+import model.Workout;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 public class JsonWriterTest extends JsonTest {
     //NOTE TO CPSC 210 STUDENTS: the strategy in designing tests for the JsonWriter is to
@@ -9,12 +16,15 @@ public class JsonWriterTest extends JsonTest {
 
     @Test
     void testWriterInvalidFile() {
-        //stub
+//        try {
+//            ArrayList<Workout> testLog = new ArrayList<>();
+//            TrainingLog tl = new TrainingLog("testTl", testLog);
+//        }
     }
 
     @Test
     void testWriterEmptyTrainingLog() {
-        //stub
+       //stub
     }
 
     @Test

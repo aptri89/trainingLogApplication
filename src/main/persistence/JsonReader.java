@@ -1,6 +1,7 @@
 package persistence;
 
-// citation needed
+// Method was taken from JsonReader in:
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 
 import model.TrainingLog;
 import model.Workout;
@@ -53,6 +54,8 @@ public class JsonReader {
         return tl;
         //stub
     }
+
+    // need two more methods here for converting still
 
 }
 
