@@ -1,6 +1,9 @@
 package model;
 
-public class Workout {
+import org.json.JSONObject;
+import persistence.Writable;
+
+public class Workout implements Writable {
 
     private String name;                 // name of workout with no spaces
     private String date;                 // date of workout with no spaces
@@ -80,6 +83,20 @@ public class Workout {
         return this.distance;
 
     }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("date", date);
+        json.put("avgHeartRate", avgHeartRate);
+        json.put("totalTime", totalTime);
+        json.put("perceivedDifficulty", perceivedDifficulty);
+        json.put("distance", distance);
+        json.put("trainingLoadValue", trainingLoadValue);
+        return json;
+    }
+
 
 
 }

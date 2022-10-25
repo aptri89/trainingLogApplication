@@ -1,5 +1,9 @@
 package model;
+// citation needed
 
+import org.json.JSONObject;
+
+// represents a swim workout object with data about the workout
 public class Swim extends Workout {
 
     private int avgSwimPace;             // average pace per 100m in seconds (swim only)
@@ -30,6 +34,8 @@ public class Swim extends Workout {
     public int getAvgSwimPace() {
         return this.avgSwimPace;
     }
+
+
 
 
 

@@ -1,9 +1,12 @@
 package model;
 
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
-public class TrainingLog {
+public class TrainingLog implements Writable {
 
     String title;
     ArrayList<Workout> trainingLog;
@@ -41,6 +44,15 @@ public class TrainingLog {
 
     public ArrayList<Workout> getTrainingLog() {
         return trainingLog;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("title", title);
+
+
+        return json;
     }
 
 }
