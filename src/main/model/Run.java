@@ -8,10 +8,10 @@ public class Run extends Workout {
 
     // REQUIRES: runName is not an empty string, todaysDate is not an empty string, runHR > 0
     // EFFECTS: creates new run object with given parameters
-    public Run(String runName, String todaysDate, int runHR, int runPaceMins, int runPaceSecs, int runTime,
+    public Run(String type, String runName, String todaysDate, int runHR, int runPaceMins, int runPaceSecs, int runTime,
                int runPerceivedDifficulty, double runDistance) {
 
-        super(runName, todaysDate, runHR, runTime, runPerceivedDifficulty, runDistance);
+        super("Run", runName, todaysDate, runHR, runTime, runPerceivedDifficulty, runDistance);
         this.avgRunPaceMins = runPaceMins;
         this.avgRunPaceSecs = runPaceSecs;
     }
@@ -35,12 +35,12 @@ public class Run extends Workout {
     }
 
     // EFFECTS: returns minutes component of average run pace
-    public int getAvgRunPaceMins() {
+    public static int getAvgRunPaceMins() {
         return this.avgRunPaceMins;
     }
 
     // EFFECTS: returns seconds component of average run pace
-    public int getAvgRunPaceSecs() {
+    public static int getAvgRunPaceSecs() {
         return this.avgRunPaceSecs;
     }
 

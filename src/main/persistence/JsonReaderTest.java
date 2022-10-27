@@ -4,6 +4,7 @@ package persistence;
 // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 
 import model.TrainingLog;
+import model.Workout;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -42,8 +43,9 @@ public class JsonReaderTest extends JsonTest {
     @Test
     void testReaderGeneralTrainingLog() {
         JsonReader reader = new JsonReader("./data/testReaderEmptyTrainingLog.json");
-
         // stub
 
+        }
+
     }
-}
+

@@ -10,14 +10,14 @@ public class SwimTest {
     private Swim testSwim;
 
     @BeforeEach
-    void runBefore() {testSwim = new Swim("EnduranceProgression", "October20,2022", 120,
+    void runBefore() {testSwim = new Swim("Swim", "EnduranceProgression", "October20,2022", 120,
             56, 100, 5, 3.5);
     }
 
     @Test
     public void testSwimConstructor() {
 
-        assertEquals("EnduranceProgression", testSwim.getTitle());
+        assertEquals("EnduranceProgression", testSwim.getName());
         assertEquals("October20,2022", testSwim.getDate());
         assertEquals(120, testSwim.getHeartRate());
         assertEquals(56, testSwim.getTotalTime());

@@ -17,7 +17,7 @@ public class WorkoutTest {
 
     @Test
     public void testWorkoutConstructor() {
-        assertEquals("Testing", testWorkout.getTitle());
+        assertEquals("Testing", testWorkout.getName());
         assertEquals("September14,2022", testWorkout.getDate());
         assertEquals(100, testWorkout.getHeartRate());
         assertEquals(25, testWorkout.getTotalTime());
@@ -43,7 +43,7 @@ public class WorkoutTest {
     public void testChangeTitle() {
         String title = "ChangedTitle";
         testWorkout.changeTitle(title);
-        assertEquals("ChangedTitle", testWorkout.getTitle());
+        assertEquals("ChangedTitle", testWorkout.getName());
     }
 
     @Test

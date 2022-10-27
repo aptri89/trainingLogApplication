@@ -12,11 +12,11 @@ public class TrainingLogTest {
 
     private TrainingLog testTrainingLog;
     private ArrayList<Workout> listOfWorkoutsForLog = new ArrayList<Workout>();
-    private Swim testSwimWorkout = new Swim("TestSwim", "October15,2022", 123,
+    private Swim testSwimWorkout = new Swim("Swim", "TestSwim", "October15,2022", 123,
             51, 120, 4, 2.3);
-    private Bike testBikeWorkout = new Bike ("TestBike", "October17,2022", 145,
+    private Bike testBikeWorkout = new Bike ("Bike", "TestBike", "October17,2022", 145,
             120, 25, 8, 78);
-    private Run testRunWorkout = new Run ("SpeedWork", "October24,2022", 156, 4,
+    private Run testRunWorkout = new Run ("Run", "SpeedWork", "October24,2022", 156, 4,
             34, 46, 9, 10);
     private ArrayList<Workout> listOfWorkoutsForLogContainingTestTitle;
 

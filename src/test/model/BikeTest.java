@@ -11,14 +11,14 @@ public class BikeTest {
     private Bike testBike;
 
     @BeforeEach
-    void runBefore() {testBike = new Bike("VO2MaxSession", "October12,2022", 154,
+    void runBefore() {testBike = new Bike("Bike", "VO2MaxSession", "October12,2022", 154,
             75, 27, 8, 40);
     }
 
     @Test
     public void testBikeConstructor() {
 
-        assertEquals("VO2MaxSession", testBike.getTitle());
+        assertEquals("VO2MaxSession", testBike.getName());
         assertEquals("October12,2022", testBike.getDate());
         assertEquals(154, testBike.getHeartRate());
         assertEquals(75, testBike.getTotalTime());

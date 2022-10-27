@@ -11,8 +11,8 @@ public class TrainingLogApp {
     private Scanner input;
     private TrainingLog defaultLog;
     private ArrayList<Workout> defaultList = new ArrayList<Workout>();
-    private Workout defaultWorkout = new Workout("null", "null", 0,
-            0, 0, 0);
+    private Workout defaultWorkout = new Workout("null", "null", "null",
+            0, 0, 0, 0);
 
 
 
@@ -126,7 +126,7 @@ public class TrainingLogApp {
     private void processCommand3(String command) {
         if (command.equals("v")) {
             for (Workout w: defaultList) {
-                System.out.print("\n" + w.getDate() + "->" + w.getTitle() + "\n");
+                System.out.print("\n" + w.getDate() + "->" + w.getName() + "\n");
             }
             System.out.print("\nPress v to view workouts again, s to search workouts or r for the home screen");
             String thisInput = input.next();
@@ -138,7 +138,7 @@ public class TrainingLogApp {
             tempList = TrainingLog.workoutsContainingTitle(title, defaultList);
             System.out.print("\nAll workouts containing search term shown below: \n");
             for (Workout w: tempList) {
-                System.out.print(w.getDate() + "->" + w.getTitle() + "\n");
+                System.out.print(w.getDate() + "->" + w.getName() + "\n");
             }
             System.out.print("\nPress s to search workouts again, v to view workouts or r for the home screen\n");
             String thisInput = input.next();
@@ -171,11 +171,11 @@ public class TrainingLogApp {
     private void createSwim() {
         System.out.print("\nEnter workout data for the following categories: \nTitle for swim workout (no spaces): ");
         String name = input.next();
-        System.out.print("\nDate of swim workout (no spaces): ");
+        System.out.print("\nDate of swim workout (example of proper format: October22,2022): ");
         String date = input.next();
         System.out.print("\nAverage swim heart rate: ");
         int swimHR = input.nextInt();
-        System.out.print("\nTotal time spent swimming: ");
+        System.out.print("\nTotal time spent swimming (mins): ");
         int swimTime = input.nextInt();
         System.out.print("\nAverage pace per 100m in seconds: ");
         int avgSwimPace = input.nextInt();
@@ -184,7 +184,8 @@ public class TrainingLogApp {
         System.out.print("\nTotal distance swam in kilometers: ");
         double swimDistance = input.nextDouble();
 
-        Swim newSwim = new Swim(name, date, swimHR, swimTime, avgSwimPace, swimPerceivedDifficulty, swimDistance);
+        Swim newSwim =
+                new Swim("Swim", name, date, swimHR, swimTime, avgSwimPace, swimPerceivedDifficulty, swimDistance);
 
         System.out.print("\nWould you like to create a new training log to add this workout to?\ny -> yes\nn -> no");
         String yesOrNo = input.next();
@@ -199,11 +200,11 @@ public class TrainingLogApp {
     private void createBike() {
         System.out.print("Enter workout data for the following categories: \nTitle for bike workout (no spaces): ");
         String name = input.next();
-        System.out.print("\nDate of bike workout (no spaces): ");
+        System.out.print("\nDate of bike workout (example of proper format: October22,2022): ");
         String date = input.next();
         System.out.print("\nAverage bike heart rate: ");
         int bikeHR = input.nextInt();
-        System.out.print("\nTotal time spent biking: ");
+        System.out.print("\nTotal time spent biking (mins): ");
         int bikeTime = input.nextInt();
         System.out.print("\nAverage speed in kilometers an hour: ");
         double avgBikeSpeed = input.nextDouble();
@@ -212,7 +213,8 @@ public class TrainingLogApp {
         System.out.print("\nTotal distance biked in kilometers: ");
         double bikeDistance = input.nextDouble();
 
-        Bike newBike = new Bike(name, date, bikeHR, bikeTime, avgBikeSpeed,bikePerceivedDifficulty, bikeDistance);
+        Bike newBike =
+                new Bike("Bike", name, date, bikeHR, bikeTime, avgBikeSpeed,bikePerceivedDifficulty, bikeDistance);
 
         System.out.println("Would you like to create a new training log to add this workout to?\ny -> yes\nn -> no");
         String yesOrNo = input.next();
@@ -226,7 +228,7 @@ public class TrainingLogApp {
     private void createRun() {
         System.out.print("Enter workout data for the following categories: \nTitle for run workout (no spaces): ");
         String name = input.next();
-        System.out.print("\nDate of run workout (no spaces): ");
+        System.out.print("\nDate of run workout (example of proper format: October22,2022): ");
         String date = input.next();
         System.out.print("\nAverage run heart rate: ");
         int runHR = input.nextInt();
@@ -234,14 +236,14 @@ public class TrainingLogApp {
         int avgRunPaceMins = input.nextInt();
         System.out.print("\nAverage run pace per kilometer (seconds component): ");
         int avgRunPaceSecs = input.nextInt();
-        System.out.print("\nTotal time spent running: ");
+        System.out.print("\nTotal time spent running (mins): ");
         int runTime = input.nextInt();
         System.out.print("\nOn a scale of 1-10, how difficult was that run? ");
         int runPD = input.nextInt();
         System.out.print("\nTotal distance ran in kilometers (up to 2 decimal points): ");
         double runDistance = input.nextDouble();
 
-        Run newRun = new Run(name, date, runHR, avgRunPaceMins, avgRunPaceSecs, runTime, runPD, runDistance);
+        Run newRun = new Run("Run", name, date, runHR, avgRunPaceMins, avgRunPaceSecs, runTime, runPD, runDistance);
 
         System.out.print("\nWould you like to create a new training log to add this workout to?\ny -> yes\nn -> no\n");
         String yesOrNo = input.next();

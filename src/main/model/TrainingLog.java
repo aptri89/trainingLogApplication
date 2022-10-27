@@ -34,7 +34,7 @@ public class TrainingLog implements Writable {
     public static ArrayList<Workout> workoutsContainingTitle(String title, ArrayList<Workout> tl) {
         ArrayList<Workout> specificLog = new ArrayList<>();
         for (Workout w: tl) {
-            if (w.getTitle().contains(title)) {
+            if (w.getName().contains(title)) {
                 specificLog.add(w);
             }
         }

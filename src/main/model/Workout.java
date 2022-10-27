@@ -5,6 +5,7 @@ import persistence.Writable;
 
 public class Workout implements Writable {
 
+    private String type;                  // type of workout (Swim, Bike or Run)
     private String name;                 // name of workout with no spaces
     private String date;                 // date of workout with no spaces
     private int avgHeartRate;            // average heart rate
@@ -14,9 +15,10 @@ public class Workout implements Writable {
     private int trainingLoadValue;       // calculated by (totalTime * perceivedDifficulty), these values are
                                          // typically added together for a list of workouts to look at overall load
 
-    public Workout(String workoutName, String workoutDate, int workoutAvgHeartRate,
+    public Workout(String workoutType, String workoutName, String workoutDate, int workoutAvgHeartRate,
                    int workoutTotalTime, int workoutPerceivedDifficulty, double workoutDistance) {
 
+        this.type = workoutType;
         this.name = workoutName;
         this.date = workoutDate;
         this.avgHeartRate = workoutAvgHeartRate;
@@ -49,7 +51,7 @@ public class Workout implements Writable {
 
     }
 
-    public String getTitle() {
+    public String getName() {
         return this.name;
     }
 
@@ -84,6 +86,10 @@ public class Workout implements Writable {
 
     }
 
+    public String getType() {
+        return this.type;
+    }
+
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -94,6 +100,14 @@ public class Workout implements Writable {
         json.put("perceivedDifficulty", perceivedDifficulty);
         json.put("distance", distance);
         json.put("trainingLoadValue", trainingLoadValue);
+        if (type == "Swim") {
+            json.put("avgSwimPace", Swim.getAvgSwimPace());
+        } else if (type == "Bike") {
+            json.put("avgBikeSpeed", Bike.getAvgBikeSpeed());
+        } else if (type == "Run") {
+            json.put("avgRunPaceMins", Run.getAvgRunPaceMins());
+            json.put("avgRunPaceSecs", Run.getAvgRunPaceSecs());
+        }
         return json;
     }
 
