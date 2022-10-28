@@ -19,14 +19,6 @@ public class JsonWriterTest extends JsonTest {
     //write data to a file and then use the reader to read it back in and check that we
     //read in a copy of what was written out.
 
-    @Before
-    private void runBefore() {
-        ArrayList<Workout> testLog = new ArrayList<>();
-        Swim testSwim = new Swim("Swim", "name", "October25,2022", 120, 45,
-                100, 6, 3.5);
-        Bike testBike = new Bike("Bike", "name", "October25,2022", 140, 45,
-                25, 4, 20);
-    }
 
 
     @Test
@@ -85,22 +77,32 @@ public class JsonWriterTest extends JsonTest {
             writer.open();
             writer.write(tl);
             writer.close();
-
             JsonReader reader = new JsonReader("./data/testWriterGeneralTrainingLog.json");
             tl = reader.read();
-            assertEquals("testTl", tl.getTitle());
-            List<Workout> workouts = tl.getTrainingLog();
-            assertEquals(2, workouts.size());
-            checkSwimWorkout("Swim","name", "October25,2022", 120, 45,
-                    6,3.5,100, testSwim);
-            checkBikeWorkout("Bike","name","October25,2022",140,45,4,
-                    20, 25, testBike);
-            checkRunWorkout("Run", "name", "October25,2022", 150,46, 5,
-                    6,5,4, testRun);
+            testWriterGeneralTrainingLogHelper(tl, testSwim, testBike, testRun);
         } catch (IOException e) {
             fail("Exception should not have been thrown!");
         }
     }
 
+
+    void testWriterGeneralTrainingLogHelper(TrainingLog tl, Swim s, Bike b, Run r) {
+
+        assertEquals("testTl", tl.getTitle());
+        List<Workout> workouts = tl.getTrainingLog();
+        assertEquals(2, workouts.size());
+
+        checkSwimWorkout("Swim", "name", "October25,2022", 120, 45,
+                6, 3.5, 100, s);
+        checkBikeWorkout("Bike", "name", "October25,2022", 140, 45, 4,
+                20, 25, b);
+        checkRunWorkout("Run", "name", "October25,2022", 150, 46, 5,
+                6, 5, 4, r);
+    }
+
+
 }
+
+
+
 
