@@ -17,7 +17,7 @@ import static org.junit.Assert.fail;
 public class JsonReaderTest extends JsonTest {
 
     @Test
-    void testReaderNonExistentFile() {
+    public void testReaderNonExistentFile() {
         JsonReader reader = new JsonReader("./data/noSuchFile.json");
         try {
             TrainingLog tl = reader.read();
@@ -28,7 +28,7 @@ public class JsonReaderTest extends JsonTest {
     }
 
     @Test
-    void testReaderEmptyTrainingLog() {
+    public void testReaderEmptyTrainingLog() {
         JsonReader reader = new JsonReader("./data/testReaderEmptyTrainingLog.json");
         try {
             TrainingLog tl = reader.read();
@@ -40,12 +40,12 @@ public class JsonReaderTest extends JsonTest {
         }
     }
 
-    @Test
-    void testReaderGeneralTrainingLog() {
-        JsonReader reader = new JsonReader("./data/testReaderEmptyTrainingLog.json");
-        // stub
+//    @Test
+//    void testReaderGeneralTrainingLog() {
+//        JsonReader reader = new JsonReader("./data/testReaderEmptyTrainingLog.json");
+//        // stub
+//
+//    }
 
-        }
-
-    }
+}
 

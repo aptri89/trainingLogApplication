@@ -22,7 +22,7 @@ public class JsonWriterTest extends JsonTest {
 
 
     @Test
-    void testWriterInvalidFile() {
+    public void testWriterInvalidFile() {
         try {
             ArrayList<Workout> testLog = new ArrayList<>();
             Swim testSwim = new Swim("Swim", "name", "October25,2022", 120, 45,
@@ -41,7 +41,7 @@ public class JsonWriterTest extends JsonTest {
     }
 
     @Test
-    void testWriterEmptyTrainingLog() {
+    public void testWriterEmptyTrainingLog() {
         try {
             ArrayList<Workout> testLog = new ArrayList<>();
             TrainingLog tl = new TrainingLog("testTl", testLog);
@@ -53,14 +53,14 @@ public class JsonWriterTest extends JsonTest {
             JsonReader reader = new JsonReader("./data/testWriterEmptyTrainingLog.json");
             tl = reader.read();
             assertEquals("testTl", tl.getTitle());
-            assertEquals(0, tl.getTrainingLog());
+            assertEquals(0, tl.getTrainingLog().size());
         } catch (IOException e) {
             fail("Exception should not have been thrown!");
         }
     }
 
     @Test
-    void testWriterGeneralTrainingLog() {
+    public void testWriterGeneralTrainingLog() {
         try {
             ArrayList<Workout> testLog = new ArrayList<>();
             Swim testSwim = new Swim("Swim", "name", "October25,2022", 120, 45,
@@ -86,7 +86,7 @@ public class JsonWriterTest extends JsonTest {
     }
 
 
-    void testWriterGeneralTrainingLogHelper(TrainingLog tl, Swim s, Bike b, Run r) {
+    public void testWriterGeneralTrainingLogHelper(TrainingLog tl, Swim s, Bike b, Run r) {
 
         assertEquals("testTl", tl.getTitle());
         List<Workout> workouts = tl.getTrainingLog();
