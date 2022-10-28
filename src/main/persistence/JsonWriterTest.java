@@ -67,6 +67,7 @@ public class JsonWriterTest extends JsonTest {
         }
     }
 
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     @Test
     void testWriterGeneralTrainingLog() {
         try {
@@ -91,33 +92,15 @@ public class JsonWriterTest extends JsonTest {
             assertEquals("testTl", tl.getTitle());
             List<Workout> workouts = tl.getTrainingLog();
             assertEquals(2, workouts.size());
-            checkWorkoutUsingCorrectParamsBasedOnType(workouts.get(0));
-            checkWorkoutUsingCorrectParamsBasedOnType(workouts.get(1));
-            checkWorkoutUsingCorrectParamsBasedOnType(workouts.get(2));
+            checkWorkout("Swim","name", "October25,2022", 120, 45,
+                    6,3.5,100,0,0,0, testSwim);
+            checkWorkout("Bike", "name", "October25,2022", 140, 45, 4,
+                    20, 0,25, 0,0, testBike);
+            checkWorkout("Run", "name", "October25,2022", 150,46, 5,
+                    6,0,0,5,4, testRun);
         } catch (IOException e) {
             fail("Exception should not have been thrown!");
         }
-    }
-
-    private boolean checkWorkoutUsingCorrectParamsBasedOnType(Workout w) {
-        if (w.getType() == "Swim") {
-            checkSwimWorkout(w.getType(), w.getName(), w.getDate(), w.getHeartRate(), w.getTotalTime(),
-                    w.getPerceivedDifficulty(), w.getDistance(), Swim.getAvgSwimPace(), w);
-            return true;
-        } else if (w.getType() == "Bike") {
-            checkBikeWorkout(w.getType(), w.getName(), w.getDate(), w.getHeartRate(), w.getTotalTime(),
-                    w.getPerceivedDifficulty(), w.getDistance(), Bike.getAvgBikeSpeed(),
-                    w);
-            return true;
-        } else if (w.getType() == "Run") {
-            checkRunWorkout(w.getType(), w.getName(), w.getDate(), w.getHeartRate(), w.getTotalTime(),
-                    w.getPerceivedDifficulty(), w.getDistance(), Run.getAvgRunPaceMins(), Run.getAvgRunPaceSecs(),
-                    w);
-            return true;
-        }
-
-
-        return true;
     }
 
 }

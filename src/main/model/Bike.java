@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 public class Bike extends Workout {
 
     private double avgBikeSpeed;            // average speed in kilometers per hour (integer values only)
@@ -23,7 +25,7 @@ public class Bike extends Workout {
     }
 
     // EFFECTS: returns average bike speed
-    public static double getAvgBikeSpeed() {
+    public double getAvgBikeSpeed() {
         return this.avgBikeSpeed;
     }
 
@@ -31,4 +33,6 @@ public class Bike extends Workout {
 
 
 
+
 }
+

@@ -73,19 +73,21 @@ public class JsonReader {
         int totalTime = jsonObject.getInt("totalTime");
         int perceivedDifficulty = jsonObject.getInt("perceivedDifficulty");
         int distance = jsonObject.getInt("distance");
-        int trainingLoadValue = jsonObject.getInt("trainingLoadValue");
 
         if (type == "Swim") {
             int avgSwimPace = jsonObject.getInt("avgSwimPace");
             Swim swim = new Swim(type, name, date, avgHeartRate, totalTime,
-                    perceivedDifficulty, distance, trainingLoadValue);
+                    avgSwimPace, perceivedDifficulty, distance);
         } else if (type == "Bike") {
             int avgBikeSpeed = jsonObject.getInt("avgBikeSpeed");
             Bike bike = new Bike(type, name, date, avgHeartRate, totalTime,
-                    perceivedDifficulty, distance, trainingLoadValue);
+                    avgBikeSpeed, perceivedDifficulty, distance);
+            bike.changeBikeSpeed(avgBikeSpeed);
         } else if (type == "Run") {
             int avgRunPaceMins = jsonObject.getInt("avgRunPaceMins");
             int avgRunPaceSecs = jsonObject.getInt("avgRunPaceSecs");
+            Run run = new Run(type, name, date, avgHeartRate, avgRunPaceMins,
+                    avgRunPaceSecs, totalTime, perceivedDifficulty, distance);
         }
 
     }

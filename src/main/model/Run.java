@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 public class Run extends Workout {
 
     private int avgRunPaceMins;          // average run pace minutes component
@@ -35,14 +37,15 @@ public class Run extends Workout {
     }
 
     // EFFECTS: returns minutes component of average run pace
-    public static int getAvgRunPaceMins() {
+    public int getAvgRunPaceMins() {
         return this.avgRunPaceMins;
     }
 
     // EFFECTS: returns seconds component of average run pace
-    public static int getAvgRunPaceSecs() {
+    public int getAvgRunPaceSecs() {
         return this.avgRunPaceSecs;
     }
+
 
 
 }

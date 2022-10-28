@@ -13,7 +13,7 @@ public class Workout implements Writable {
     private int perceivedDifficulty;     // on a scale of 1-10 where 10 is maximum effort
     private double distance;             // distance covered in kilometers
     private int trainingLoadValue;       // calculated by (totalTime * perceivedDifficulty), these values are
-                                         // typically added together for a list of workouts to look at overall load
+    // typically added together for a list of workouts to look at overall load
 
     public Workout(String workoutType, String workoutName, String workoutDate, int workoutAvgHeartRate,
                    int workoutTotalTime, int workoutPerceivedDifficulty, double workoutDistance) {
@@ -90,9 +90,27 @@ public class Workout implements Writable {
         return this.type;
     }
 
-    @Override
+    public int getSwimPaceFromSwim() {
+        return Swim.getAvgSwimPace();
+    }
+
+    public double getBikeSpeedFromBike() {
+        return Bike.getAvgBikeSpeed();
+    }
+
+    public int getAvgRunPaceMinsFromRun() {
+        return Run.getAvgRunPaceMins();
+    }
+
+    public int getAvgRunPaceSecsFromRun() {
+        return Run.getAvgRunPaceSecs();
+    }
+
+
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
+        json.put("type", type);
         json.put("name", name);
         json.put("date", date);
         json.put("avgHeartRate", avgHeartRate);
@@ -101,17 +119,27 @@ public class Workout implements Writable {
         json.put("distance", distance);
         json.put("trainingLoadValue", trainingLoadValue);
         if (type == "Swim") {
-            json.put("avgSwimPace", Swim.getAvgSwimPace());
+            json.put("avgSwimPace", getSwimPaceFromSwim());
+            json.put("avgBikeSpeed", "");
+            json.put("avgRunPaceMins", "");
+            json.put("avgRunPaceSecs", "");
         } else if (type == "Bike") {
-            json.put("avgBikeSpeed", Bike.getAvgBikeSpeed());
+            json.put("avgBikeSpeed", getBikeSpeedFromBike());
+            json.put("avgSwimPace", "");
+            json.put("avgRunPaceMins", "");
+            json.put("avgRunPaceSecs", "");
         } else if (type == "Run") {
-            json.put("avgRunPaceMins", Run.getAvgRunPaceMins());
-            json.put("avgRunPaceSecs", Run.getAvgRunPaceSecs());
+            json.put("avgRunPaceMins", getAvgRunPaceMinsFromRun());
+            json.put("avgRunPaceSecs", getAvgRunPaceSecsFromRun());
+            json.put("avgSwimPace", "");
+            json.put("avgBikeSpeed", "");
         }
+
         return json;
     }
 
 
-
 }
+
+
 
