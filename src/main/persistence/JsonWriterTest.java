@@ -67,7 +67,6 @@ public class JsonWriterTest extends JsonTest {
         }
     }
 
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     @Test
     void testWriterGeneralTrainingLog() {
         try {
@@ -92,12 +91,12 @@ public class JsonWriterTest extends JsonTest {
             assertEquals("testTl", tl.getTitle());
             List<Workout> workouts = tl.getTrainingLog();
             assertEquals(2, workouts.size());
-            checkWorkout("Swim","name", "October25,2022", 120, 45,
-                    6,3.5,100,0,0,0, testSwim);
-            checkWorkout("Bike", "name", "October25,2022", 140, 45, 4,
-                    20, 0,25, 0,0, testBike);
-            checkWorkout("Run", "name", "October25,2022", 150,46, 5,
-                    6,0,0,5,4, testRun);
+            checkSwimWorkout("Swim","name", "October25,2022", 120, 45,
+                    6,3.5,100, testSwim);
+            checkBikeWorkout("Bike","name","October25,2022",140,45,4,
+                    20, 25, testBike);
+            checkRunWorkout("Run", "name", "October25,2022", 150,46, 5,
+                    6,5,4, testRun);
         } catch (IOException e) {
             fail("Exception should not have been thrown!");
         }

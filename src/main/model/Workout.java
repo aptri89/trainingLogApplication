@@ -90,24 +90,7 @@ public class Workout implements Writable {
         return this.type;
     }
 
-    public int getSwimPaceFromSwim() {
-        return Swim.getAvgSwimPace();
-    }
 
-    public double getBikeSpeedFromBike() {
-        return Bike.getAvgBikeSpeed();
-    }
-
-    public int getAvgRunPaceMinsFromRun() {
-        return Run.getAvgRunPaceMins();
-    }
-
-    public int getAvgRunPaceSecsFromRun() {
-        return Run.getAvgRunPaceSecs();
-    }
-
-
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("type", type);
@@ -118,22 +101,6 @@ public class Workout implements Writable {
         json.put("perceivedDifficulty", perceivedDifficulty);
         json.put("distance", distance);
         json.put("trainingLoadValue", trainingLoadValue);
-        if (type == "Swim") {
-            json.put("avgSwimPace", getSwimPaceFromSwim());
-            json.put("avgBikeSpeed", "");
-            json.put("avgRunPaceMins", "");
-            json.put("avgRunPaceSecs", "");
-        } else if (type == "Bike") {
-            json.put("avgBikeSpeed", getBikeSpeedFromBike());
-            json.put("avgSwimPace", "");
-            json.put("avgRunPaceMins", "");
-            json.put("avgRunPaceSecs", "");
-        } else if (type == "Run") {
-            json.put("avgRunPaceMins", getAvgRunPaceMinsFromRun());
-            json.put("avgRunPaceSecs", getAvgRunPaceSecsFromRun());
-            json.put("avgSwimPace", "");
-            json.put("avgBikeSpeed", "");
-        }
 
         return json;
     }

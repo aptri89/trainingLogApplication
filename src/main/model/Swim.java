@@ -36,6 +36,15 @@ public class Swim extends Workout {
     }
 
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = super.toJson();
+        json.put("avgSwimPace", avgSwimPace);
+        json.put("avgBikeSpeed", 0);
+        json.put("avgRunPaceMins", 0);
+        json.put("avgRunPaceSecs", 0);
+        return json;
+    }
 
 
 }

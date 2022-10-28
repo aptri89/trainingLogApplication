@@ -46,6 +46,16 @@ public class Run extends Workout {
         return this.avgRunPaceSecs;
     }
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = super.toJson();
+        json.put("avgRunPaceMins", avgRunPaceMins);
+        json.put("avgRunPaceSecs", avgRunPaceSecs);
+        json.put("avgSwimPace", 0);
+        json.put("avgBikeSpeed", 0);
+        return json;
+    }
+
 
 
 }
