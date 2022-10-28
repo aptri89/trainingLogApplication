@@ -82,7 +82,6 @@ public class JsonReader {
             int avgBikeSpeed = jsonObject.getInt("avgBikeSpeed");
             Bike bike = new Bike(type, name, date, avgHeartRate, totalTime,
                     avgBikeSpeed, perceivedDifficulty, distance);
-            bike.changeBikeSpeed(avgBikeSpeed);
         } else if (type == "Run") {
             int avgRunPaceMins = jsonObject.getInt("avgRunPaceMins");
             int avgRunPaceSecs = jsonObject.getInt("avgRunPaceSecs");
