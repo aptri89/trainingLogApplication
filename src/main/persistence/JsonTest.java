@@ -3,12 +3,10 @@ package persistence;
 // Method was taken from JsonTest in:
 // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 
-import model.Bike;
-import model.Run;
-import model.Swim;
 import model.Workout;
 
-import static org.junit.Assert.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JsonTest {
     protected void checkSwimWorkout(String type, String name, String date, int avgHeartRate, int totalTime,
