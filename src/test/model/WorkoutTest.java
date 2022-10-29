@@ -11,8 +11,8 @@ public class WorkoutTest {
 
     @BeforeEach
     void runBefore() {
-        testWorkout = new Workout("Testing", "September14,2022", 100,
-                25, 3, 1.5);
+        testWorkout = new Workout("Testing", "Testing", "September14,2022",
+                100, 25, 3, 1.5);
     }
 
     @Test
