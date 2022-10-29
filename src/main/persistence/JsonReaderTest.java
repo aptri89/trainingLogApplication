@@ -35,7 +35,6 @@ public class JsonReaderTest extends JsonTest {
             assertEquals(0, tl.getTrainingLog().size());
         } catch (IOException e) {
             fail("Couldn't read from file");
-
         }
     }
 
@@ -47,15 +46,15 @@ public class JsonReaderTest extends JsonTest {
             assertEquals("testTl", tl.getTitle());
             List<Workout> workouts = tl.getTrainingLog();
             assertEquals(3, workouts.size());
-            checkSwimWorkout("Swim", "name","October25,2022", 120, 45,
+            checkSwimWorkout("Swim", "name", "October25,2022", 120, 45,
                     6, 3.5, 100, workouts.get(0));
             checkBikeWorkout("Bike", "name", "October25,2022", 140, 45,
-                    4,20,25, workouts.get(1));
-            checkRunWorkout("Run", "name","October25,2022",150,46,
-                    5,6,5,4, workouts.get(2));
-
+                    4, 20, 25, workouts.get(1));
+            checkRunWorkout("Run", "name", "October25,2022", 150, 46,
+                    5, 6, 5, 4, workouts.get(2));
         } catch (IOException e) {
             fail("Couldn't read from file");
+
         }
 
     }
