@@ -19,7 +19,6 @@ public class JsonWriterTest extends JsonTest {
     //read in a copy of what was written out.
 
 
-
     @Test
     public void testWriterInvalidFile() {
         try {
@@ -76,9 +75,9 @@ public class JsonWriterTest extends JsonTest {
             writer.open();
             writer.write(tl);
             writer.close();
-            JsonReader reader = new JsonReader("./data/testWriterGeneralTrainingLog.json");
-            tl = reader.read();
+
             testWriterGeneralTrainingLogHelper(tl, testSwim, testBike, testRun);
+
         } catch (IOException e) {
             fail("Exception should not have been thrown!");
         }
@@ -87,18 +86,26 @@ public class JsonWriterTest extends JsonTest {
 
     public void testWriterGeneralTrainingLogHelper(TrainingLog tl, Swim s, Bike b, Run r) {
 
-        assertEquals("testTl", tl.getTitle());
-        assertEquals(3, tl.getTrainingLog().size());
+        try {
 
-        checkSwimWorkout("Swim", "name", "October25,2022", 120, 45,
-                6, 3.5, 100, s);
-        checkBikeWorkout("Bike", "name", "October25,2022", 140, 45, 4,
-                20, 25, b);
-        checkRunWorkout("Run", "name", "October25,2022", 150, 46, 5,
-                6, 5, 4, r);
+            JsonReader reader = new JsonReader("./data/testWriterGeneralTrainingLog.json");
+            tl = reader.read();
+
+            assertEquals("testTl", tl.getTitle());
+            List<Workout> workouts = tl.getTrainingLog();
+            assertEquals(3, workouts.size());
+
+            checkSwimWorkout("Swim", "name", "October25,2022", 120, 45,
+                    6, 3.5, 100, s);
+            checkBikeWorkout("Bike", "name", "October25,2022", 140, 45, 4,
+                    20, 25, b);
+            checkRunWorkout("Run", "name", "October25,2022", 150, 46, 5,
+                    6, 5, 4, r);
+        } catch (IOException e) {
+            fail("Exception should not have been thrown!");
+        }
+
     }
-
-
 }
 
 
