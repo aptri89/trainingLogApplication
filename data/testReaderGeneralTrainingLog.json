@@ -1,0 +1,47 @@
+{
+  "title": "testTl",
+  "trainingLog": [
+    {
+      "date": "October25,2022",
+      "trainingLoadValue": 270,
+      "avgRunPaceMins": 0,
+      "distance": 3.5,
+      "avgBikeSpeed": 0,
+      "totalTime": 45,
+      "name": "name",
+      "perceivedDifficulty": 6,
+      "avgSwimPace": 100,
+      "type": "Swim",
+      "avgRunPaceSecs": 0,
+      "avgHeartRate": 120
+    },
+    {
+      "date": "October25,2022",
+      "trainingLoadValue": 180,
+      "avgRunPaceMins": 0,
+      "distance": 20,
+      "avgBikeSpeed": 25,
+      "totalTime": 45,
+      "name": "name",
+      "perceivedDifficulty": 4,
+      "avgSwimPace": 0,
+      "type": "Bike",
+      "avgRunPaceSecs": 0,
+      "avgHeartRate": 140
+    },
+    {
+      "date": "October25,2022",
+      "trainingLoadValue": 230,
+      "avgRunPaceMins": 5,
+      "distance": 6,
+      "avgBikeSpeed": 0,
+      "totalTime": 46,
+      "name": "name",
+      "perceivedDifficulty": 5,
+      "avgSwimPace": 0,
+      "type": "Run",
+      "avgRunPaceSecs": 4,
+      "avgHeartRate": 150
+    }
+  ]
+}

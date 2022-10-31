@@ -68,10 +68,10 @@ public class JsonWriterTest extends JsonTest {
                     25, 4, 20);
             Run testRun = new Run("Run", "name", "October25,2022", 150, 5,
                     4, 46, 5, 6);
-            testLog.add(testSwim);
-            testLog.add(testBike);
-            testLog.add(testRun);
             TrainingLog tl = new TrainingLog("testTl", testLog);
+            tl.getTrainingLog().add(testSwim);
+            tl.getTrainingLog().add(testBike);
+            tl.getTrainingLog().add(testRun);
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralTrainingLog.json");
             writer.open();
             writer.write(tl);
@@ -88,8 +88,7 @@ public class JsonWriterTest extends JsonTest {
     public void testWriterGeneralTrainingLogHelper(TrainingLog tl, Swim s, Bike b, Run r) {
 
         assertEquals("testTl", tl.getTitle());
-        List<Workout> workouts = tl.getTrainingLog();
-        assertEquals(2, workouts.size());
+        assertEquals(3, tl.getTrainingLog().size());
 
         checkSwimWorkout("Swim", "name", "October25,2022", 120, 45,
                 6, 3.5, 100, s);
