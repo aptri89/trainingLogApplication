@@ -1,4 +1,4 @@
-package persistence;
+package model.persistenceTests;
 
 // Method was taken from JsonTest in:
 // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git

@@ -1,10 +1,12 @@
-package persistence;
+package model.persistenceTests;
 
 // Method was taken from JsonWriterTest in:
 // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 
 import model.*;
 import org.junit.jupiter.api.Test;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -1,10 +1,11 @@
-package persistence;
+package model.persistenceTests;
 
 // Method was taken from JsonReaderTest in:
 // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 
 import model.*;
 import org.junit.jupiter.api.Test;
+import persistence.JsonReader;
 
 import java.io.IOException;
 import java.util.List;
