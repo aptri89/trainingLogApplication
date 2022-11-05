@@ -1,23 +1,33 @@
 package ui;
 
 import model.*;
+import org.json.JSONWriter;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 // application for tracking workouts
 // additional functionality to change all workout parameters will be added soon
 public class TrainingLogApp {
+    private static final String JSON_STORE = "./data/trainingLog.json";
     private Scanner input;
     private TrainingLog defaultLog;
     private ArrayList<Workout> defaultList = new ArrayList<Workout>();
     private Workout defaultWorkout = new Workout("null", "null", "null",
             0, 0, 0, 0);
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
 
 
     //EFFECTS: runs the workout tracking application
-    public TrainingLogApp() {
+    public TrainingLogApp() throws FileNotFoundException {
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runTrainingLog();
     }
 
@@ -125,35 +135,49 @@ public class TrainingLogApp {
     // EFFECTS: determines next program step using user input
     private void processCommand3(String command) {
         if (command.equals("v")) {
-            for (Workout w: defaultList) {
-                System.out.print("\n" + w.getDate() + "->" + w.getName() + "\n");
-            }
-            System.out.print("\nPress v to view workouts again, s to search workouts or r for the home screen");
-            String thisInput = input.next();
-            processCommand3(thisInput);
+            viewWorkouts();
         } else if (command.equals("s")) {
-            System.out.print("\nEnter search term to search workout titles: \n");
-            String title = input.next();
-            ArrayList<Workout> tempList = new ArrayList<>();
-            tempList = TrainingLog.workoutsContainingTitle(title, defaultList);
-            System.out.print("\nAll workouts containing search term shown below: \n");
-            for (Workout w: tempList) {
-                System.out.print(w.getDate() + "->" + w.getName() + "\n");
-            }
-            System.out.print("\nPress s to search workouts again, v to view workouts or r for the home screen\n");
-            String thisInput = input.next();
-            processCommand3(thisInput);
-
+            searchWorkouts();
+        } else if (command.equals("d")) {
+            saveTrainingLog();
+        } else if (command.equals("l")) {
+            loadTrainingLog();
         } else {
             System.out.print("\nReturning to home screen ...");
         }
 
     }
 
+    private void viewWorkouts() {
+        for (Workout w: defaultList) {
+            System.out.print("\n" + w.getDate() + "->" + w.getName() + "\n");
+        }
+        System.out.print("\nPress v to view workouts again, s to search workouts or r for the home screen");
+        String thisInput = input.next();
+        processCommand3(thisInput);
+    }
+
+    private void searchWorkouts() {
+        System.out.print("\nEnter search term to search workout titles: \n");
+        String title = input.next();
+        ArrayList<Workout> tempList = new ArrayList<>();
+        tempList = TrainingLog.workoutsContainingTitle(title, defaultList);
+        System.out.print("\nAll workouts containing search term shown below: \n");
+
+        for (Workout w: tempList) {
+            System.out.print(w.getDate() + "->" + w.getName() + "\n");
+        }
+        System.out.print("\nPress s to search workouts again, v to view workouts or r for the home screen\n");
+        String thisInput = input.next();
+        processCommand3(thisInput);
+    }
+
     private void thirdScreen() {
         System.out.print("\nOther options are presented below:");
         System.out.print("\nv -> view my workouts");
         System.out.print("\ns -> search my workouts");
+        System.out.print("\nd -> save my training log to file");
+        System.out.print("\nl -> load my training log from file");
         System.out.print("\nr -> return to home screen\n");
     }
 
@@ -265,6 +289,30 @@ public class TrainingLogApp {
         defaultLog = tlObject;
         defaultList = tlObject.getTrainingLog();
 
+    }
+
+    // EFFECTS: saves the training log to file
+    private void saveTrainingLog() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(defaultLog);
+            jsonWriter.close();
+            System.out.println("Saved " + defaultLog.getTitle() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads training log from file
+    private void loadTrainingLog() {
+        try {
+            defaultLog = jsonReader.read();
+            System.out.println("Loaded " + defaultLog.getTitle() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 
 

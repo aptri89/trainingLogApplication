@@ -41,7 +41,7 @@ public class JsonReaderTest extends JsonTest {
 
     @Test
     public void testReaderGeneralTrainingLog() {
-        JsonReader reader = new JsonReader("./data/testReaderEmptyTrainingLog.json");
+        JsonReader reader = new JsonReader("./data/testReaderGeneralTrainingLog.json");
         try {
             TrainingLog tl = reader.read();
             assertEquals("testTl", tl.getTitle());
