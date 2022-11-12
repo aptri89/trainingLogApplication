@@ -2,15 +2,16 @@ package ui;
 
 // citation for AlarmSystem here **
 
-import model.TrainingLog;
 import model.Workout;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
+import java.util.Scanner;
 
 
 // represents application's main window frame
@@ -19,6 +20,11 @@ public class TrainingLogViewerUI extends JFrame {
     private static final int HEIGHT = 800;
     private JDesktopPane desktop;
     private JInternalFrame controlPanel;
+    private static final String JSON_STORE = "./data/trainingLog.json";
+    private Scanner input;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+    private KeyBoard kb;
 
 
 
@@ -63,10 +69,22 @@ public class TrainingLogViewerUI extends JFrame {
     // current training log
     private class AddNewWorkoutAction extends AbstractAction {
 
+        AddNewWorkoutAction() {
+            super("Add New Workout: ");
+        }
+
         @Override
         public void actionPerformed(ActionEvent e) {
+            Workout newWorkout = createWorkout();
 
         }
+    }
+
+    private Workout createWorkout() {
+        Workout w = new Workout("Swim", "Swim", "October",
+                0,0,0,0);
+        return w; // stub
+
     }
 
     private class FilterByTypeAction extends AbstractAction {
