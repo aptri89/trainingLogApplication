@@ -8,6 +8,7 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -22,9 +23,9 @@ public class TrainingLogViewerUI extends JFrame {
     private JDesktopPane desktop;
     private JInternalFrame controlPanel;
     private static final String JSON_STORE = "./data/trainingLog.json";
-    private Scanner input;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
+    private JLabel titlePanel;
 
 
 
@@ -44,6 +45,7 @@ public class TrainingLogViewerUI extends JFrame {
         setSize(WIDTH, HEIGHT);
 
         addButtons();
+        addTitle();
 
         controlPanel.setTitle("Training Log Controls");
 
@@ -70,11 +72,10 @@ public class TrainingLogViewerUI extends JFrame {
 
         controlPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-
     }
 
-    // MODIFIES: TrainingLog
-    // EFFECTS: represents action to be taken when user wants to add a new workout to the
+    // MODIFIES: this
+    // EFFECTS: represents action to be taken when user wants to add a new swim workout to the
     // current training log
     private class AddNewSwimAction extends AbstractAction {
 
@@ -84,9 +85,24 @@ public class TrainingLogViewerUI extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            String type = "Swim";
+            String title;
+            String date;
+            String swimHR;
+            String swimTime;
+            String swimPace;
+            String swimPerceivedDifficulty;
+            String swimDistance;
 
             // TODO: need to trigger a swim-specific pop-up window for user input and then use code from previous ui
             //  to record all the inputs
+            title = JOptionPane.showInputDialog("Please input a title: ");
+            date = JOptionPane.showInputDialog("Please input the date: ");
+            swimHR = JOptionPane.showInputDialog("Please input your average heart rate: ");
+            swimTime = JOptionPane.showInputDialog("Please input total time: ");
+            swimPace = JOptionPane.showInputDialog("Please input your pace per 100m in seconds: ");
+            swimPerceivedDifficulty = JOptionPane.showInputDialog("Please rate the difficulty ");
+
 
             // TODO: add swim to training log
 
@@ -96,6 +112,10 @@ public class TrainingLogViewerUI extends JFrame {
         }
     }
 
+
+    // MODIFIES: this
+    // EFFECTS: represents action to be taken when user wants to add a new bike workout to the
+    // current training log
     private class AddNewBikeAction extends AbstractAction {
 
         AddNewBikeAction() {
@@ -116,6 +136,9 @@ public class TrainingLogViewerUI extends JFrame {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: represents action to be taken when user wants to add a new run workout to the
+    // current training log
     private class AddNewRunAction extends AbstractAction {
 
         AddNewRunAction() {
@@ -136,6 +159,8 @@ public class TrainingLogViewerUI extends JFrame {
         }
     }
 
+
+    // EFFECTS: displays only workouts with specified type in display window
     private class FilterByTypeAction extends AbstractAction {
 
         FilterByTypeAction() {
@@ -153,6 +178,7 @@ public class TrainingLogViewerUI extends JFrame {
         }
     }
 
+    // EFFECTS: saves the current state of the application
     private class SaveCurrentAction extends AbstractAction {
 
         SaveCurrentAction() {
@@ -169,6 +195,9 @@ public class TrainingLogViewerUI extends JFrame {
         }
     }
 
+
+    // MODIFIES: this
+    // EFFECTS: loads the previous state of the application
     private class LoadPreviousAction extends AbstractAction {
 
         LoadPreviousAction() {
@@ -186,6 +215,12 @@ public class TrainingLogViewerUI extends JFrame {
             // TODO: display the loaded workouts
 
         }
+    }
+
+    private void addTitle() {
+        titlePanel = new JLabel("Training Log Editor");
+        controlPanel.add(titlePanel, BorderLayout.NORTH);
+
     }
 
 
