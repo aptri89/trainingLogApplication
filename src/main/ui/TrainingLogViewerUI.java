@@ -2,18 +2,19 @@ package ui;
 
 // citation for AlarmSystem here **
 
+import model.Bike;
 import model.Swim;
+import model.TrainingLog;
 import model.Workout;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.swing.*;
-import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Scanner;
+import java.util.ArrayList;
 
 
 // represents application's main window frame
@@ -26,6 +27,8 @@ public class TrainingLogViewerUI extends JFrame {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private JLabel titlePanel;
+    private TrainingLog trainingLog;
+    private ArrayList<Workout> workouts = new ArrayList<>();
 
 
 
@@ -52,6 +55,8 @@ public class TrainingLogViewerUI extends JFrame {
         controlPanel.pack();
         controlPanel.setVisible(true);
         desktop.add(controlPanel);
+
+        trainingLog = new TrainingLog("My Training Log", workouts);
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
@@ -85,6 +90,7 @@ public class TrainingLogViewerUI extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            Swim newSwim;
             String type = "Swim";
             String title;
             String date;
@@ -101,13 +107,20 @@ public class TrainingLogViewerUI extends JFrame {
             swimHR = JOptionPane.showInputDialog("Please input your average heart rate: ");
             swimTime = JOptionPane.showInputDialog("Please input total time: ");
             swimPace = JOptionPane.showInputDialog("Please input your pace per 100m in seconds: ");
-            swimPerceivedDifficulty = JOptionPane.showInputDialog("Please rate the difficulty ");
+            swimPerceivedDifficulty =
+                    JOptionPane.showInputDialog("Please rate the difficulty of your workout from 1-10:  ");
+            swimDistance = JOptionPane.showInputDialog("Please input your distance: ");
 
+            newSwim = new Swim(type, title, date, Integer.parseInt(swimHR), Integer.parseInt(swimTime),
+                    Integer.parseInt(swimPace), Integer.parseInt(swimPerceivedDifficulty),
+                    Double.parseDouble(swimDistance));
 
             // TODO: add swim to training log
+            trainingLog.addWorkout(newSwim, workouts);
 
             // TODO: after all inputs entered and swim is created, need to somehow display it in format:
             //  type + ": " + title + " (" + date + ")\n"
+            displayWorkout(newSwim);
 
         }
     }
@@ -124,9 +137,12 @@ public class TrainingLogViewerUI extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            Bike newBike;
 
             // TODO: need to trigger a bike-specific pop-up window for user input and then use code from previous ui
             //  to record all the inputs
+
+
 
             // TODO: add bike to training log
 
@@ -157,6 +173,12 @@ public class TrainingLogViewerUI extends JFrame {
             //  type + ": " + title + " (" + date + ")\n"
 
         }
+    }
+
+    // EFFECTS: displays the type, title and date of w in the display section of the main window
+    private void displayWorkout(Workout w) {
+
+        // TODO: finish this method
     }
 
 
