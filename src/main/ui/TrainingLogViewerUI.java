@@ -29,6 +29,7 @@ public class TrainingLogViewerUI extends JFrame {
     private JLabel titlePanel;
     private TrainingLog trainingLog;
     private ArrayList<Workout> workouts = new ArrayList<>();
+    private JInternalFrame displayArea;
 
 
 
@@ -39,12 +40,13 @@ public class TrainingLogViewerUI extends JFrame {
 
         desktop = new JDesktopPane();
         desktop.addMouseListener(new DesktopFocusAction());
-        controlPanel = new JInternalFrame("Default Control", false, false,
+        controlPanel = new JInternalFrame("Training Log Viewer", false, false,
                 false,false);
         controlPanel.setLayout(new BorderLayout());
+        displayArea = new JInternalFrame("Workouts: ", false, false,
+                false,false);
 
         setContentPane(desktop);
-        setTitle("TrainingLogViewer");
         setSize(WIDTH, HEIGHT);
 
         addButtons();
@@ -55,6 +57,10 @@ public class TrainingLogViewerUI extends JFrame {
         controlPanel.pack();
         controlPanel.setVisible(true);
         desktop.add(controlPanel);
+
+        displayArea.pack();
+        displayArea.setVisible(true);
+        desktop.add(displayArea, BorderLayout.NORTH);
 
         trainingLog = new TrainingLog("My Training Log", workouts);
 
@@ -179,6 +185,10 @@ public class TrainingLogViewerUI extends JFrame {
     private void displayWorkout(Workout w) {
 
         // TODO: finish this method
+        String displayString = w.getType() + ": " + w.getName() + " (" + w.getDate() + ")\n";
+        JLabel workout = new JLabel(displayString);
+        displayArea.add(workout, BorderLayout.SOUTH);
+        displayArea.setVisible(true);
     }
 
 
