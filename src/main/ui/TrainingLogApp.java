@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 // application for tracking workouts
-// additional functionality to change all workout parameters will be added soon
+// TODO: additional functionality to change all workout parameters
 public class TrainingLogApp {
     private static final String JSON_STORE = "./data/trainingLog.json";
     private Scanner input;

@@ -2,10 +2,7 @@ package ui;
 
 // citation for AlarmSystem here **
 
-import model.Bike;
-import model.Swim;
-import model.TrainingLog;
-import model.Workout;
+import model.*;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -14,8 +11,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+// Project Requirements:
+// TODO: display all X's added to Y
+// TODO: be able to add X to Y
+// TODO: be able to save current X's to file
+// TODO: be able to load previous X's from file
+// TODO: add an image that appears after adding a workout
 
 // represents application's main window frame
 public class TrainingLogViewerUI extends JFrame {
@@ -29,7 +33,8 @@ public class TrainingLogViewerUI extends JFrame {
     private JLabel titlePanel;
     private TrainingLog trainingLog;
     private ArrayList<Workout> workouts = new ArrayList<>();
-    private JInternalFrame displayArea;
+    private DisplayArea displayArea;
+    private JPanel filterPanel;
 
 
 
@@ -43,8 +48,8 @@ public class TrainingLogViewerUI extends JFrame {
         controlPanel = new JInternalFrame("Training Log Viewer", false, false,
                 false,false);
         controlPanel.setLayout(new BorderLayout());
-        displayArea = new JInternalFrame("Workouts: ", false, false,
-                false,false);
+        displayArea = new DisplayArea();
+
 
         setContentPane(desktop);
         setSize(WIDTH, HEIGHT);
@@ -58,9 +63,9 @@ public class TrainingLogViewerUI extends JFrame {
         controlPanel.setVisible(true);
         desktop.add(controlPanel);
 
-        displayArea.pack();
-        displayArea.setVisible(true);
         desktop.add(displayArea, BorderLayout.NORTH);
+        displayArea.setVisible(true);
+
 
         trainingLog = new TrainingLog("My Training Log", workouts);
 
@@ -106,8 +111,6 @@ public class TrainingLogViewerUI extends JFrame {
             String swimPerceivedDifficulty;
             String swimDistance;
 
-            // TODO: need to trigger a swim-specific pop-up window for user input and then use code from previous ui
-            //  to record all the inputs
             title = JOptionPane.showInputDialog("Please input a title: ");
             date = JOptionPane.showInputDialog("Please input the date: ");
             swimHR = JOptionPane.showInputDialog("Please input your average heart rate: ");
@@ -121,11 +124,8 @@ public class TrainingLogViewerUI extends JFrame {
                     Integer.parseInt(swimPace), Integer.parseInt(swimPerceivedDifficulty),
                     Double.parseDouble(swimDistance));
 
-            // TODO: add swim to training log
             trainingLog.addWorkout(newSwim, workouts);
 
-            // TODO: after all inputs entered and swim is created, need to somehow display it in format:
-            //  type + ": " + title + " (" + date + ")\n"
             displayWorkout(newSwim);
 
         }
@@ -144,16 +144,31 @@ public class TrainingLogViewerUI extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             Bike newBike;
+            String type = "Bike";
+            String title;
+            String date;
+            String bikeHR;
+            String bikeTime;
+            String bikeSpeed;
+            String bikePerceivedDifficulty;
+            String bikeDistance;
 
-            // TODO: need to trigger a bike-specific pop-up window for user input and then use code from previous ui
-            //  to record all the inputs
+            title = JOptionPane.showInputDialog("Please input a title: ");
+            date = JOptionPane.showInputDialog("Please input the date: ");
+            bikeHR = JOptionPane.showInputDialog("Please input your average heart rate: ");
+            bikeTime = JOptionPane.showInputDialog("Please input total time: ");
+            bikeSpeed = JOptionPane.showInputDialog("Please input your speed in km/hr: ");
+            bikePerceivedDifficulty =
+                    JOptionPane.showInputDialog("Please rate the difficulty of your workout from 1-10:  ");
+            bikeDistance = JOptionPane.showInputDialog("Please input your distance: ");
 
+            newBike = new Bike(type, title, date, Integer.parseInt(bikeHR), Integer.parseInt(bikeTime),
+                    Integer.parseInt(bikeSpeed), Integer.parseInt(bikePerceivedDifficulty),
+                    Double.parseDouble(bikeDistance));
 
+            trainingLog.addWorkout(newBike, workouts);
 
-            // TODO: add bike to training log
-
-            // TODO: after all inputs entered and bike is created, need to somehow display it in format:
-            //  type + ": " + title + " (" + date + ")\n"
+            displayWorkout(newBike);
 
         }
     }
@@ -167,16 +182,38 @@ public class TrainingLogViewerUI extends JFrame {
             super("Add New Run");
         }
 
+        // TODO: ask if I can suppress checkstyle here
+        @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
         @Override
         public void actionPerformed(ActionEvent e) {
+            Run newRun;
+            String type = "Run";
+            String title;
+            String date;
+            String runHR;
+            String runTime;
+            String runPaceMins;
+            String runPaceSecs;
+            String runPerceivedDifficulty;
+            String runDistance;
 
-            // TODO: need to trigger a run-specific pop-up window for user input and then use code from previous ui
-            //  to record all the inputs
+            title = JOptionPane.showInputDialog("Please input a title: ");
+            date = JOptionPane.showInputDialog("Please input the date: ");
+            runHR = JOptionPane.showInputDialog("Please input your average heart rate: ");
+            runTime = JOptionPane.showInputDialog("Please input total time: ");
+            runPaceMins = JOptionPane.showInputDialog("Please input the minutes component of your run speed: ");
+            runPaceSecs = JOptionPane.showInputDialog("Please input the seconds component of your run speed: ");
+            runPerceivedDifficulty =
+                    JOptionPane.showInputDialog("Please rate the difficulty of your workout from 1-10: ");
+            runDistance = JOptionPane.showInputDialog("Please input your distance: ");
 
-            // TODO: add run to training log
+            newRun = new Run(type,title,date,Integer.parseInt(runHR), Integer.parseInt(runPaceMins),
+                    Integer.parseInt(runPaceSecs), Integer.parseInt(runTime), Integer.parseInt(runPerceivedDifficulty),
+                    Double.parseDouble(runDistance));
 
-            // TODO: after all inputs entered and run is created, need to somehow display it in format:
-            //  type + ": " + title + " (" + date + ")\n"
+            trainingLog.addWorkout(newRun, workouts);
+
+            displayWorkout(newRun);
 
         }
     }
@@ -184,11 +221,11 @@ public class TrainingLogViewerUI extends JFrame {
     // EFFECTS: displays the type, title and date of w in the display section of the main window
     private void displayWorkout(Workout w) {
 
-        // TODO: finish this method
+        // TODO: figure out how to make this part appear
+        displayArea.setLayout(new BoxLayout(displayArea,BoxLayout.Y_AXIS));
         String displayString = w.getType() + ": " + w.getName() + " (" + w.getDate() + ")\n";
         JLabel workout = new JLabel(displayString);
-        displayArea.add(workout, BorderLayout.SOUTH);
-        displayArea.setVisible(true);
+        displayArea.add(workout);
     }
 
 
@@ -201,11 +238,9 @@ public class TrainingLogViewerUI extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
-            // TODO: pop-up with the three types (Swim, Bike and Run) as buttons needs to appear
-
-            // TODO: button input needs to trigger the display in the main window to only show workouts with the type
-            //  pressed by the user
+            FilterByTypePopUp filterByTypePopUp = new FilterByTypePopUp();
+            filterPanel.add(filterByTypePopUp);
+            // TODO: how to make this pop up appear without getting rid of the main panel?
 
         }
     }
@@ -217,12 +252,18 @@ public class TrainingLogViewerUI extends JFrame {
             super("Save Current Training Log");
         }
 
+        // TODO: is it correct to just copy over the JSON code?
         @Override
         public void actionPerformed(ActionEvent e) {
-
-            // TODO: use JsonWriter code (in TrainingLog and Workout) to save the current workouts that have
-            //  been created
-
+            jsonWriter = new JsonWriter(JSON_STORE);
+            try {
+                jsonWriter.open();
+                jsonWriter.write(trainingLog);
+                jsonWriter.close();
+                System.out.println("Saved " + trainingLog.getTitle() + " to " + JSON_STORE);
+            } catch (FileNotFoundException ex) {
+                System.out.println("Unable to write to file: " + JSON_STORE);
+            }
 
         }
     }
@@ -238,6 +279,7 @@ public class TrainingLogViewerUI extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            jsonReader = new JsonReader(JSON_STORE);
 
             // TODO: use JsonReader code (idk where it is right now but we'll find it) to load the previously saved
             //  workouts
