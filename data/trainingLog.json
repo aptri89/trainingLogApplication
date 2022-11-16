@@ -1,17 +1,17 @@
 {
-    "title": "JanuarySwimLog",
+    "title": "My Training Log",
     "trainingLog": [{
-        "date": "January21,2022",
-        "trainingLoadValue": 270,
+        "date": "October24,2022",
+        "trainingLoadValue": 125,
         "avgRunPaceMins": 0,
-        "distance": 3,
-        "avgBikeSpeed": 0,
-        "totalTime": 45,
-        "name": "Swimming",
-        "perceivedDifficulty": 6,
-        "avgSwimPace": 100,
-        "type": "Swim",
+        "distance": 2.45,
+        "avgBikeSpeed": 25,
+        "totalTime": 25,
+        "name": "Biking",
+        "perceivedDifficulty": 5,
+        "avgSwimPace": 0,
+        "type": "Bike",
         "avgRunPaceSecs": 0,
-        "avgHeartRate": 124
+        "avgHeartRate": 125
     }]
 }

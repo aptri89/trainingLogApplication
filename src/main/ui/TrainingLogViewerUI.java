@@ -19,7 +19,7 @@ import java.util.ArrayList;
 // TODO: be able to add X to Y
 // TODO: be able to save current X's to file
 // TODO: be able to load previous X's from file
-// TODO: add an image that appears after adding a workout
+// TODO: add a splash screen or an image that appears after
 
 // represents application's main window frame
 public class TrainingLogViewerUI extends JFrame {
@@ -34,7 +34,6 @@ public class TrainingLogViewerUI extends JFrame {
     private TrainingLog trainingLog;
     private ArrayList<Workout> workouts = new ArrayList<>();
     private DisplayArea displayArea;
-    private JPanel filterPanel;
 
 
 
@@ -63,9 +62,9 @@ public class TrainingLogViewerUI extends JFrame {
         controlPanel.setVisible(true);
         desktop.add(controlPanel);
 
-        desktop.add(displayArea, BorderLayout.NORTH);
-        displayArea.setVisible(true);
 
+        displayArea.setVisible(true);
+        desktop.add(displayArea, BorderLayout.NORTH);
 
         trainingLog = new TrainingLog("My Training Log", workouts);
 
@@ -222,10 +221,8 @@ public class TrainingLogViewerUI extends JFrame {
     private void displayWorkout(Workout w) {
 
         // TODO: figure out how to make this part appear
-        displayArea.setLayout(new BoxLayout(displayArea,BoxLayout.Y_AXIS));
         String displayString = w.getType() + ": " + w.getName() + " (" + w.getDate() + ")\n";
-        JLabel workout = new JLabel(displayString);
-        displayArea.add(workout);
+        displayArea.addToDisplayArea(displayString);
     }
 
 
@@ -239,7 +236,6 @@ public class TrainingLogViewerUI extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             FilterByTypePopUp filterByTypePopUp = new FilterByTypePopUp();
-            filterPanel.add(filterByTypePopUp);
             // TODO: how to make this pop up appear without getting rid of the main panel?
 
         }

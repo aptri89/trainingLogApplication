@@ -1,8 +1,7 @@
 package ui;
 
-import model.Workout;
-
 import javax.swing.*;
+import java.awt.*;
 
 public class DisplayArea extends JPanel {
 
@@ -10,7 +9,10 @@ public class DisplayArea extends JPanel {
 
     }
 
-    private void displayWorkout(Workout w) {
-
+    public void addToDisplayArea(String newWorkout) {
+        JLabel newLabel = new JLabel(newWorkout);
+        setLayout(new FlowLayout());
+        add(newLabel);
     }
+
 }
