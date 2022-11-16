@@ -33,7 +33,7 @@ public class TrainingLogViewerUI extends JFrame {
     private JLabel titlePanel;
     private TrainingLog trainingLog;
     private ArrayList<Workout> workouts = new ArrayList<>();
-    private DisplayArea displayArea;
+    private JPanel displayArea;
 
 
 
@@ -47,24 +47,23 @@ public class TrainingLogViewerUI extends JFrame {
         controlPanel = new JInternalFrame("Training Log Viewer", false, false,
                 false,false);
         controlPanel.setLayout(new BorderLayout());
-        displayArea = new DisplayArea();
+        displayArea = new JPanel();
 
 
         setContentPane(desktop);
         setSize(WIDTH, HEIGHT);
 
         addButtons();
-        addTitle();
 
-        controlPanel.setTitle("Training Log Controls");
+        displayArea.setSize(300,300);
+        displayArea.setLayout(new FlowLayout());
+        displayArea.setVisible(true);
+        controlPanel.add(displayArea, BorderLayout.NORTH);
 
         controlPanel.pack();
         controlPanel.setVisible(true);
         desktop.add(controlPanel);
 
-
-        displayArea.setVisible(true);
-        desktop.add(displayArea, BorderLayout.NORTH);
 
         trainingLog = new TrainingLog("My Training Log", workouts);
 
@@ -111,7 +110,7 @@ public class TrainingLogViewerUI extends JFrame {
             String swimDistance;
 
             title = JOptionPane.showInputDialog("Please input a title: ");
-            date = JOptionPane.showInputDialog("Please input the date: ");
+            date = JOptionPane.showInputDialog("Please input the date (ex. October24,2022): ");
             swimHR = JOptionPane.showInputDialog("Please input your average heart rate: ");
             swimTime = JOptionPane.showInputDialog("Please input total time: ");
             swimPace = JOptionPane.showInputDialog("Please input your pace per 100m in seconds: ");
@@ -222,8 +221,11 @@ public class TrainingLogViewerUI extends JFrame {
 
         // TODO: figure out how to make this part appear
         String displayString = w.getType() + ": " + w.getName() + " (" + w.getDate() + ")\n";
-        displayArea.addToDisplayArea(displayString);
+        JLabel newLabel = new JLabel(displayString);
+        displayArea.add(newLabel);
+
     }
+
 
 
     // EFFECTS: displays only workouts with specified type in display window
@@ -236,7 +238,9 @@ public class TrainingLogViewerUI extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             FilterByTypePopUp filterByTypePopUp = new FilterByTypePopUp();
-            // TODO: how to make this pop up appear without getting rid of the main panel?
+            controlPanel.add(filterByTypePopUp, BorderLayout.EAST); // TODO: make this look nicer
+            controlPanel.pack();
+            controlPanel.setVisible(true);
 
         }
     }
@@ -287,12 +291,6 @@ public class TrainingLogViewerUI extends JFrame {
         }
     }
 
-    private void addTitle() {
-        titlePanel = new JLabel("Training Log Editor");
-        controlPanel.add(titlePanel, BorderLayout.NORTH);
-
-    }
-
 
 
 
@@ -303,5 +301,9 @@ public class TrainingLogViewerUI extends JFrame {
         public void mouseClicked(MouseEvent e) {
             TrainingLogViewerUI.this.requestFocusInWindow();
         }
+    }
+
+    public ArrayList<Workout> getWorkouts() {
+        return workouts;
     }
 }

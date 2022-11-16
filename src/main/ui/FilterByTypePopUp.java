@@ -1,26 +1,35 @@
 package ui;
 
+// used information from https://www.geeksforgeeks.org/java-swing-popup-and-popupfactory-with-examples/
+
+import model.Workout;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class FilterByTypePopUp extends JPanel {
-    JPanel popUp;
+    JLabel label;
 
     // TODO: how to get this pop up to actually appear when I click the FilterByType button?
     public FilterByTypePopUp() {
-        popUp = new JPanel();
+        label = new JLabel("Choose type to filter by: ");
+        this.add(label, BorderLayout.NORTH);
         addButtons();
+
 
     }
 
+
+
     private void addButtons() {
-        popUp.setLayout(new GridLayout(3, 1));
-        popUp.add(new JButton(new SwimFilterAction()));
-        popUp.add(new JButton(new BikeFilterAction()));
-        popUp.add(new JButton(new RunFilterAction()));
-        // TODO: button input needs to trigger the display in the main window to only show workouts with the type
-        //  pressed by the user
+        this.setLayout(new GridLayout(3, 1));
+        this.add(new JButton(new SwimFilterAction()));
+        this.add(new JButton(new BikeFilterAction()));
+        this.add(new JButton(new RunFilterAction()));
+
 
     }
 
@@ -32,6 +41,8 @@ public class FilterByTypePopUp extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            //TODO: display only swim type workout
+
 
         }
     }
@@ -44,6 +55,7 @@ public class FilterByTypePopUp extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            // TODO: display only bike type workouts
 
         }
     }
@@ -56,9 +68,11 @@ public class FilterByTypePopUp extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            // TODO: display only run type workouts
 
         }
     }
+
 
 
 }
