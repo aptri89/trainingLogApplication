@@ -56,8 +56,8 @@ public class TrainingLogViewerUI extends JFrame {
 
         addButtons();
 
-        displayArea.setSize(WIDTH,HEIGHT);
         displayArea.setLayout(new GridLayout());
+        displayArea.setBounds(0, 200, WIDTH, HEIGHT);
         displayArea.pack();
         displayArea.setVisible(true);
         desktop.add(displayArea, BorderLayout.NORTH);
