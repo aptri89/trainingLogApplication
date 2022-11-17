@@ -369,11 +369,12 @@ public class TrainingLogViewerUI extends JFrame {
                 System.out.println("Loaded workouts from " + JSON_STORE);
                 loadedWorkouts = loadedFromFile.getTrainingLog();
                 workouts.addAll(loadedWorkouts);
+                for (Workout w :loadedWorkouts) {
+                    displayWorkout(w);
+                }
             } catch (IOException exception) {
                 System.out.println("Unable to read from file: " + JSON_STORE);
             }
-
-            // TODO: figure out how to display all the loadedWorkouts
 
         }
     }
