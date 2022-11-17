@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 // Project Requirements:
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 public class TrainingLogViewerUI extends JFrame {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 800;
+    private static int ROWS = 10;
     private JDesktopPane desktop;
     private JInternalFrame controlPanel;
     private static final String JSON_STORE = "./data/trainingLog.json";
@@ -34,6 +36,7 @@ public class TrainingLogViewerUI extends JFrame {
     private TrainingLog trainingLog;
     private ArrayList<Workout> workouts = new ArrayList<>();
     private JInternalFrame displayArea;
+    private FilterByTypePopUp filter;
 
 
 
@@ -56,7 +59,7 @@ public class TrainingLogViewerUI extends JFrame {
 
         addButtons();
 
-        displayArea.setLayout(new GridLayout());
+        displayArea.setLayout(new GridLayout(ROWS,1)); // TODO: how to set this up with no need for ROWS?
         displayArea.setBounds(0, 200, WIDTH, HEIGHT);
         displayArea.pack();
         displayArea.setVisible(true);
@@ -154,7 +157,7 @@ public class TrainingLogViewerUI extends JFrame {
             String bikeDistance;
 
             title = JOptionPane.showInputDialog("Please input a title: ");
-            date = JOptionPane.showInputDialog("Please input the date: ");
+            date = JOptionPane.showInputDialog("Please input the date (ex. October24,2022): ");
             bikeHR = JOptionPane.showInputDialog("Please input your average heart rate: ");
             bikeTime = JOptionPane.showInputDialog("Please input total time: ");
             bikeSpeed = JOptionPane.showInputDialog("Please input your speed in km/hr: ");
@@ -163,7 +166,7 @@ public class TrainingLogViewerUI extends JFrame {
             bikeDistance = JOptionPane.showInputDialog("Please input your distance: ");
 
             newBike = new Bike(type, title, date, Integer.parseInt(bikeHR), Integer.parseInt(bikeTime),
-                    Integer.parseInt(bikeSpeed), Integer.parseInt(bikePerceivedDifficulty),
+                    Double.parseDouble(bikeSpeed), Integer.parseInt(bikePerceivedDifficulty),
                     Double.parseDouble(bikeDistance));
 
             trainingLog.addWorkout(newBike, workouts);
@@ -198,7 +201,7 @@ public class TrainingLogViewerUI extends JFrame {
             String runDistance;
 
             title = JOptionPane.showInputDialog("Please input a title: ");
-            date = JOptionPane.showInputDialog("Please input the date: ");
+            date = JOptionPane.showInputDialog("Please input the date (ex. October24,2022): ");
             runHR = JOptionPane.showInputDialog("Please input your average heart rate: ");
             runTime = JOptionPane.showInputDialog("Please input total time: ");
             runPaceMins = JOptionPane.showInputDialog("Please input the minutes component of your run speed: ");
@@ -221,7 +224,6 @@ public class TrainingLogViewerUI extends JFrame {
     // EFFECTS: displays the type, title and date of w in the display section of the main window
     private void displayWorkout(Workout w) {
 
-        // TODO: figure out how to make this part appear
         String displayString = w.getType() + ": " + w.getName() + " (" + w.getDate() + ")\n";
         JLabel newLabel = new JLabel(displayString);
         displayArea.add(newLabel);
@@ -240,13 +242,89 @@ public class TrainingLogViewerUI extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            FilterByTypePopUp filterByTypePopUp = new FilterByTypePopUp();
-            controlPanel.add(filterByTypePopUp, BorderLayout.EAST); // TODO: make this look nicer
+            filter = new FilterByTypePopUp();
+            addFilterButtons();
+            controlPanel.add(filter, BorderLayout.EAST); // TODO: make this look nicer
             controlPanel.pack();
             controlPanel.setVisible(true);
 
+
         }
     }
+
+    // MODIFIES: FilterByTypePopUp
+    // EFFECTS: adds new buttons with the different filtering options
+    private void addFilterButtons() {
+        filter.setLayout(new GridLayout(3, 1));
+        filter.add(new JButton(new SwimFilterAction()));
+        filter.add(new JButton(new BikeFilterAction()));
+        filter.add(new JButton(new RunFilterAction()));
+
+
+    }
+
+    // EFFECTS: filters workouts in current workouts list by type "Swim"
+    private class SwimFilterAction extends AbstractAction {
+
+        SwimFilterAction() {
+            super("Filter by Type: Swim");
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            displayArea.removeAll(); // TODO: this isn't working to get rid of components
+            ArrayList<Workout> swimOnly = new ArrayList<>();
+            for (Workout w : workouts) {
+                if (w.getType().equals("Swim")) {
+                    swimOnly.add(w);
+                    displayWorkout(w);
+                }
+            }
+        }
+    }
+
+    // EFFECTS: filters workouts in current workouts list by type "Bike"
+    private class BikeFilterAction extends AbstractAction {
+
+        BikeFilterAction() {
+            super("Filter By Type: Bike");
+
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            displayArea.removeAll(); // TODO: this isn't working to get rid of components
+            ArrayList<Workout> bikeOnly = new ArrayList<>();
+            for (Workout w : workouts) {
+                if (w.getType().equals("Swim")) {
+                    bikeOnly.add(w);
+                    displayWorkout(w);
+                }
+            }
+        }
+    }
+
+
+    // EFFECTS: filters workouts in current workouts list by type "Run"
+    private class RunFilterAction extends AbstractAction {
+
+        RunFilterAction() {
+            super("Filter By Type: Run");
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            displayArea.removeAll(); // TODO: this isn't working to get rid of components
+            ArrayList<Workout> runOnly = new ArrayList<>();
+            for (Workout w : workouts) {
+                if (w.getType().equals("Swim")) {
+                    runOnly.add(w);
+                    displayWorkout(w);
+                }
+            }
+        }
+    }
+
 
     // EFFECTS: saves the current state of the application
     private class SaveCurrentAction extends AbstractAction {
@@ -273,7 +351,7 @@ public class TrainingLogViewerUI extends JFrame {
 
 
     // MODIFIES: this
-    // EFFECTS: loads the previous state of the application
+    // EFFECTS: loads previously saved workouts, adds them to the current list of workouts and displays them
     private class LoadPreviousAction extends AbstractAction {
 
         LoadPreviousAction() {
@@ -283,17 +361,22 @@ public class TrainingLogViewerUI extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             jsonReader = new JsonReader(JSON_STORE);
+            TrainingLog loadedFromFile;
+            ArrayList<Workout> loadedWorkouts;
 
-            // TODO: use JsonReader code (idk where it is right now but we'll find it) to load the previously saved
-            //  workouts
+            try {
+                loadedFromFile = jsonReader.read();
+                System.out.println("Loaded workouts from " + JSON_STORE);
+                loadedWorkouts = loadedFromFile.getTrainingLog();
+                workouts.addAll(loadedWorkouts);
+            } catch (IOException exception) {
+                System.out.println("Unable to read from file: " + JSON_STORE);
+            }
 
-            // TODO: add those loaded workouts to this training log
-
-            // TODO: display the loaded workouts
+            // TODO: figure out how to display all the loadedWorkouts
 
         }
     }
-
 
 
 
@@ -306,7 +389,4 @@ public class TrainingLogViewerUI extends JFrame {
         }
     }
 
-    public ArrayList<Workout> getWorkouts() {
-        return workouts;
-    }
 }

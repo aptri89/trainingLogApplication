@@ -1,33 +1,17 @@
 {
     "title": "My Training Log",
-    "trainingLog": [
-        {
-            "date": "October24,2022",
-            "trainingLoadValue": 225,
-            "avgRunPaceMins": 0,
-            "distance": 30,
-            "avgBikeSpeed": 24,
-            "totalTime": 45,
-            "name": "Biking",
-            "perceivedDifficulty": 5,
-            "avgSwimPace": 0,
-            "type": "Bike",
-            "avgRunPaceSecs": 0,
-            "avgHeartRate": 124
-        },
-        {
-            "date": "October25,2022",
-            "trainingLoadValue": 180,
-            "avgRunPaceMins": 5,
-            "distance": 5.6,
-            "avgBikeSpeed": 0,
-            "totalTime": 45,
-            "name": "Running",
-            "perceivedDifficulty": 4,
-            "avgSwimPace": 0,
-            "type": "Run",
-            "avgRunPaceSecs": 4,
-            "avgHeartRate": 124
-        }
-    ]
+    "trainingLog": [{
+        "date": "October25,202",
+        "trainingLoadValue": 102,
+        "avgRunPaceMins": 0,
+        "distance": 34,
+        "avgBikeSpeed": 23,
+        "totalTime": 34,
+        "name": "Biking",
+        "perceivedDifficulty": 3,
+        "avgSwimPace": 0,
+        "type": "Bike",
+        "avgRunPaceSecs": 0,
+        "avgHeartRate": 123
+    }]
 }
