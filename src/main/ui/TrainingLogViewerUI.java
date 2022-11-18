@@ -43,7 +43,6 @@ public class TrainingLogViewerUI extends JFrame {
     private FilterByTypePopUp filter;
     private JInternalFrame filterDisplay;
     private ImageIcon happyTraining;
-    private ImageIcon newHappyTraining;
 
 
     // constructor constructs window for displaying workouts in a training log and
@@ -104,6 +103,8 @@ public class TrainingLogViewerUI extends JFrame {
 
     }
 
+    // MODIFIES: displayArea
+    // EFFECTS: sets up the display area for workouts added
     private void setUpDisplayArea() {
         displayArea.setLayout(new GridLayout(ROWS, 1)); // TODO: how to set this up with no need for ROWS?
         displayArea.setBounds(0, 200, WIDTH, HEIGHT);
@@ -124,6 +125,7 @@ public class TrainingLogViewerUI extends JFrame {
             super("Add New Swim");
         }
 
+        // EFFECTS: achieves effects of the class
         @Override
         public void actionPerformed(ActionEvent e) {
             Swim newSwim;
@@ -168,6 +170,7 @@ public class TrainingLogViewerUI extends JFrame {
             super("Add New Bike");
         }
 
+        // EFFECTS: achieves effects of the class
         @Override
         public void actionPerformed(ActionEvent e) {
             Bike newBike;
@@ -211,6 +214,7 @@ public class TrainingLogViewerUI extends JFrame {
             super("Add New Run");
         }
 
+        // EFFECTS: achieves effects of the class
         @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -260,6 +264,7 @@ public class TrainingLogViewerUI extends JFrame {
 
     }
 
+    // EFFECTS: displays image and message after a workout is added
     private void displayImage() {
         JOptionPane.showMessageDialog(desktop, "Thanks for recording a workout!", "Workout Message",
                 JOptionPane.INFORMATION_MESSAGE, happyTraining);
@@ -267,13 +272,15 @@ public class TrainingLogViewerUI extends JFrame {
 
 
     // TODO: AFTER THIS CLASS AND THE ASSOCIATED METHODS WORK FINISH README FILE
-    // EFFECTS: displays only workouts with specified type in display window
+    // EFFECTS: displays only workouts with specified type in filterDisplay window
     private class FilterByTypeAction extends AbstractAction {
 
         FilterByTypeAction() {
             super("Filter Workouts By Type");
         }
 
+        // MODIFIES: filterDisplay
+        // EFFECTS: method that achieves the effects of the class
         @Override
         public void actionPerformed(ActionEvent e) {
             filter = new FilterByTypePopUp();
@@ -284,7 +291,7 @@ public class TrainingLogViewerUI extends JFrame {
         }
     }
 
-    // EFFECTS: sets up the new frame for filtered workouts and hides the regular display area
+    // EFFECTS: sets up the new frame for filtered workouts
     private void setUpFilterDisplay() {
         desktop.add(filterDisplay);
         filterDisplay.setLayout(new GridLayout(ROWS, 1)); // TODO: how to set this up with no need for ROWS?
@@ -313,7 +320,7 @@ public class TrainingLogViewerUI extends JFrame {
             super("Filter by Type: Swim");
         }
 
-        // MODIFIES: displayArea
+        // MODIFIES: filterDisplay
         // EFFECTS: filters workouts in current workouts list by type "Swim"
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -341,7 +348,7 @@ public class TrainingLogViewerUI extends JFrame {
 
         }
 
-        // MODIFIES: displayArea
+        // MODIFIES: filterArea
         // EFFECTS: filters workouts in current workouts list by type "Bike"
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -368,7 +375,7 @@ public class TrainingLogViewerUI extends JFrame {
             super("Filter By Type: Run");
         }
 
-        // MODIFIES: displayArea
+        // MODIFIES: filterArea
         // EFFECTS: filters workouts in current workouts list by type "Run"
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -421,7 +428,7 @@ public class TrainingLogViewerUI extends JFrame {
             super("Load Previous Training Log");
         }
 
-        // MODIFIES: this
+        // MODIFIES: trainingLog
         // EFFECTS: loads previously saved workouts, adds them to the current list of workouts and displays them
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -438,6 +445,8 @@ public class TrainingLogViewerUI extends JFrame {
 
         }
 
+        // MODIFIES: displayArea
+        // EFFECTS: displays all workouts loaded from file in the displayArea
         private void displayAllLoaded() {
             loadedWorkouts = loadedFromFile.getTrainingLog();
             workouts.addAll(loadedWorkouts);

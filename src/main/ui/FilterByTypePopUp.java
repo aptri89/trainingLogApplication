@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+// creates new JPanel for the filter buttons
 public class FilterByTypePopUp extends JPanel {
     JLabel label;
 
