@@ -39,9 +39,20 @@ of workouts).
 - As a user, I want to be able to change my workout title, date or distance after inputting it.
 - As a user, I want to be able to view the workouts in my training log. 
 - As a user, I want to be able to see how many workouts with a certain title my training log contains.
-  (ie. how many workouts titled "Running" are contained in my current training log)
+  (i.e. how many workouts titled "Running" are contained in my current training log)
 - As a user, I want to be able to save my training log to file.
 - As a user, I want to be able to reload my saved training log with all data intact and continue to add workouts to it. 
 
+# Instructions for Grader
+
+- You can generate the first required event related to adding Xs to a Y by running the Main class and clicking on 
+either the button for adding a swim, adding a bike, or adding a run. You can do this multiple times to add any of these
+three kinds of workouts both to the display area and an internal Training Log that keeps track of each one. 
+- You can generate the second required event related to adding Xs to a Y by adding at least one workout and clicking 
+the Filter By Type button. For the best demonstration of this functionality, add at least two workouts of different 
+types before clicking the FilterByType button. 
+- You can locate my visual component by 
+- You can save the state of my application by clicking the Save Current Training Log button.  
+- You can reload the state of my application by clicking the Load Previous Training Log button. 
 
  

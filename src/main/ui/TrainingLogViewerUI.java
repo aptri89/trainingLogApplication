@@ -37,6 +37,8 @@ public class TrainingLogViewerUI extends JFrame {
     private ArrayList<Workout> workouts = new ArrayList<>();
     private JInternalFrame displayArea;
     private FilterByTypePopUp filter;
+    private JInternalFrame filterDisplay;
+
 
 
 
@@ -52,7 +54,8 @@ public class TrainingLogViewerUI extends JFrame {
         controlPanel.setLayout(new BorderLayout());
         displayArea = new JInternalFrame("Display Area", false, false, false,
                 false);
-
+        filterDisplay = new JInternalFrame("Filtered Workouts", false,false,false,
+                false);
 
         setContentPane(desktop);
         setSize(WIDTH, HEIGHT);
@@ -64,6 +67,7 @@ public class TrainingLogViewerUI extends JFrame {
         displayArea.pack();
         displayArea.setVisible(true);
         desktop.add(displayArea, BorderLayout.NORTH);
+
 
         controlPanel.pack();
         controlPanel.setVisible(true);
@@ -129,7 +133,7 @@ public class TrainingLogViewerUI extends JFrame {
 
             trainingLog.addWorkout(newSwim, workouts);
 
-            displayWorkout(newSwim);
+            displayWorkout(newSwim, displayArea);
 
         }
     }
@@ -171,7 +175,7 @@ public class TrainingLogViewerUI extends JFrame {
 
             trainingLog.addWorkout(newBike, workouts);
 
-            displayWorkout(newBike);
+            displayWorkout(newBike, displayArea);
 
         }
     }
@@ -216,23 +220,26 @@ public class TrainingLogViewerUI extends JFrame {
 
             trainingLog.addWorkout(newRun, workouts);
 
-            displayWorkout(newRun);
+            displayWorkout(newRun, displayArea);
 
         }
     }
 
     // EFFECTS: displays the type, title and date of w in the display section of the main window
-    private void displayWorkout(Workout w) {
+    private void displayWorkout(Workout w, JInternalFrame frame) {
 
         String displayString = w.getType() + ": " + w.getName() + " (" + w.getDate() + ")\n";
         JLabel newLabel = new JLabel(displayString);
-        displayArea.add(newLabel);
-        displayArea.pack();
+        frame.add(newLabel);
+        frame.pack();
+        frame.setVisible(true);
+
 
     }
 
 
 
+    // TODO: AFTER THIS CLASS AND THE ASSOCIATED METHODS WORK FINISH README FILE
     // EFFECTS: displays only workouts with specified type in display window
     private class FilterByTypeAction extends AbstractAction {
 
@@ -242,15 +249,23 @@ public class TrainingLogViewerUI extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            displayArea.removeAll();
-            displayArea.setTitle("Display Area");
             filter = new FilterByTypePopUp();
             addFilterButtons();
-            controlPanel.add(filter, BorderLayout.EAST); // TODO: make this look nicer
+            controlPanel.add(filter, BorderLayout.EAST);
             controlPanel.pack();
             controlPanel.setVisible(true);
 
+            displayArea.setVisible(false);
 
+            filterDisplay.setLayout(new GridLayout(ROWS, 1)); // TODO: how to set this up with no need for ROWS?
+            filterDisplay.setBounds(0, 200, WIDTH, HEIGHT);
+            filterDisplay.pack();
+            filterDisplay.setVisible(true);
+
+            if (trainingLog.getTrainingLog().size() == 0) {
+                filterDisplay.add(new JLabel("No workouts added yet."));
+                filterDisplay.setVisible(true);
+            }
         }
     }
 
@@ -278,11 +293,13 @@ public class TrainingLogViewerUI extends JFrame {
         public void actionPerformed(ActionEvent e) {
             for (Workout w : trainingLog.getTrainingLog()) {
                 if (w.getType().equals("Swim")) {
-                    displayWorkout(w);
+                    displayWorkout(w, filterDisplay);
+                    filterDisplay.setVisible(true);
                 }
             }
         }
     }
+
 
     // EFFECTS: creates action that filters workouts in current workouts list by type "Bike"
     private class BikeFilterAction extends AbstractAction {
@@ -297,8 +314,9 @@ public class TrainingLogViewerUI extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             for (Workout w : trainingLog.getTrainingLog()) {
-                if (w.getType().equals("Swim")) {
-                    displayWorkout(w);
+                if (w.getType().equals("Bike")) {
+                    displayWorkout(w, filterDisplay);
+                    filterDisplay.setVisible(true);
                 }
             }
         }
@@ -317,8 +335,9 @@ public class TrainingLogViewerUI extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             for (Workout w : trainingLog.getTrainingLog()) {
-                if (w.getType().equals("Swim")) {
-                    displayWorkout(w);
+                if (w.getType().equals("Run")) {
+                    displayWorkout(w, filterDisplay);
+                    filterDisplay.setVisible(true);
                 }
             }
         }
@@ -331,8 +350,6 @@ public class TrainingLogViewerUI extends JFrame {
         SaveCurrentAction() {
             super("Save Current Training Log");
         }
-
-        // TODO: is it correct to just copy over the JSON code?
 
         // EFFECTS: saves the current state of the application (workouts added to the current list of workouts)
         @Override
@@ -372,7 +389,7 @@ public class TrainingLogViewerUI extends JFrame {
                 loadedWorkouts = loadedFromFile.getTrainingLog();
                 workouts.addAll(loadedWorkouts);
                 for (Workout w :loadedWorkouts) {
-                    displayWorkout(w);
+                    displayWorkout(w, filterDisplay);
                 }
             } catch (IOException exception) {
                 System.out.println("Unable to read from file: " + JSON_STORE);
