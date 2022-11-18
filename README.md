@@ -49,9 +49,10 @@ of workouts).
 either the button for adding a swim, adding a bike, or adding a run. You can do this multiple times to add any of these
 three kinds of workouts both to the display area and an internal Training Log that keeps track of each one. 
 - You can generate the second required event related to adding Xs to a Y by adding at least one workout and clicking 
-the Filter By Type button. For the best demonstration of this functionality, add at least two workouts of different 
-types before clicking the FilterByType button. 
-- You can locate my visual component by 
+the Filter By Type button for the type you added. For the best demonstration of this functionality, add at least two 
+workouts of different types before clicking the FilterByType button. 
+- You can locate my visual component by adding a workout. It is a JOptionPane with an ImageIcon that appears after 
+every workout is added. 
 - You can save the state of my application by clicking the Save Current Training Log button.  
 - You can reload the state of my application by clicking the Load Previous Training Log button. 
 
