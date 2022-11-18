@@ -20,6 +20,7 @@ import java.util.ArrayList;
 // TODO: be able to add X to Y
 // TODO: be able to save current X's to file
 // TODO: be able to load previous X's from file
+// TODO: be able to filter workouts by type
 // TODO: add a splash screen or an image that appears after
 
 // represents application's main window frame
@@ -32,7 +33,6 @@ public class TrainingLogViewerUI extends JFrame {
     private static final String JSON_STORE = "./data/trainingLog.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
-    private JLabel titlePanel;
     private TrainingLog trainingLog;
     private ArrayList<Workout> workouts = new ArrayList<>();
     private JInternalFrame displayArea;
@@ -242,6 +242,8 @@ public class TrainingLogViewerUI extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            displayArea.removeAll();
+            displayArea.setTitle("Display Area");
             filter = new FilterByTypePopUp();
             addFilterButtons();
             controlPanel.add(filter, BorderLayout.EAST); // TODO: make this look nicer
@@ -255,7 +257,7 @@ public class TrainingLogViewerUI extends JFrame {
     // MODIFIES: FilterByTypePopUp
     // EFFECTS: adds new buttons with the different filtering options
     private void addFilterButtons() {
-        filter.setLayout(new GridLayout(3, 1));
+        filter.setLayout(new GridLayout(1, 3));
         filter.add(new JButton(new SwimFilterAction()));
         filter.add(new JButton(new BikeFilterAction()));
         filter.add(new JButton(new RunFilterAction()));
@@ -263,27 +265,26 @@ public class TrainingLogViewerUI extends JFrame {
 
     }
 
-    // EFFECTS: filters workouts in current workouts list by type "Swim"
+    // EFFECTS: creates action that filters workouts in current workouts list by type "Swim"
     private class SwimFilterAction extends AbstractAction {
 
         SwimFilterAction() {
             super("Filter by Type: Swim");
         }
 
+        // MODIFIES: displayArea
+        // EFFECTS: filters workouts in current workouts list by type "Swim"
         @Override
         public void actionPerformed(ActionEvent e) {
-            displayArea.removeAll(); // TODO: this isn't working to get rid of components
-            ArrayList<Workout> swimOnly = new ArrayList<>();
-            for (Workout w : workouts) {
+            for (Workout w : trainingLog.getTrainingLog()) {
                 if (w.getType().equals("Swim")) {
-                    swimOnly.add(w);
                     displayWorkout(w);
                 }
             }
         }
     }
 
-    // EFFECTS: filters workouts in current workouts list by type "Bike"
+    // EFFECTS: creates action that filters workouts in current workouts list by type "Bike"
     private class BikeFilterAction extends AbstractAction {
 
         BikeFilterAction() {
@@ -291,13 +292,12 @@ public class TrainingLogViewerUI extends JFrame {
 
         }
 
+        // MODIFIES: displayArea
+        // EFFECTS: filters workouts in current workouts list by type "Bike"
         @Override
         public void actionPerformed(ActionEvent e) {
-            displayArea.removeAll(); // TODO: this isn't working to get rid of components
-            ArrayList<Workout> bikeOnly = new ArrayList<>();
-            for (Workout w : workouts) {
+            for (Workout w : trainingLog.getTrainingLog()) {
                 if (w.getType().equals("Swim")) {
-                    bikeOnly.add(w);
                     displayWorkout(w);
                 }
             }
@@ -305,20 +305,19 @@ public class TrainingLogViewerUI extends JFrame {
     }
 
 
-    // EFFECTS: filters workouts in current workouts list by type "Run"
+    // EFFECTS: creates action that filters workouts in current workouts list by type "Run"
     private class RunFilterAction extends AbstractAction {
 
         RunFilterAction() {
             super("Filter By Type: Run");
         }
 
+        // MODIFIES: displayArea
+        // EFFECTS: filters workouts in current workouts list by type "Run"
         @Override
         public void actionPerformed(ActionEvent e) {
-            displayArea.removeAll(); // TODO: this isn't working to get rid of components
-            ArrayList<Workout> runOnly = new ArrayList<>();
-            for (Workout w : workouts) {
+            for (Workout w : trainingLog.getTrainingLog()) {
                 if (w.getType().equals("Swim")) {
-                    runOnly.add(w);
                     displayWorkout(w);
                 }
             }
@@ -326,7 +325,7 @@ public class TrainingLogViewerUI extends JFrame {
     }
 
 
-    // EFFECTS: saves the current state of the application
+    // EFFECTS: creates action to save the current state of the application
     private class SaveCurrentAction extends AbstractAction {
 
         SaveCurrentAction() {
@@ -334,6 +333,8 @@ public class TrainingLogViewerUI extends JFrame {
         }
 
         // TODO: is it correct to just copy over the JSON code?
+
+        // EFFECTS: saves the current state of the application (workouts added to the current list of workouts)
         @Override
         public void actionPerformed(ActionEvent e) {
             jsonWriter = new JsonWriter(JSON_STORE);
@@ -350,14 +351,15 @@ public class TrainingLogViewerUI extends JFrame {
     }
 
 
-    // MODIFIES: this
-    // EFFECTS: loads previously saved workouts, adds them to the current list of workouts and displays them
+   // EFFECTS: creates action to load previously saved workouts
     private class LoadPreviousAction extends AbstractAction {
 
         LoadPreviousAction() {
             super("Load Previous Training Log");
         }
 
+        // MODIFIES: this
+        // EFFECTS: loads previously saved workouts, adds them to the current list of workouts and displays them
         @Override
         public void actionPerformed(ActionEvent e) {
             jsonReader = new JsonReader(JSON_STORE);
