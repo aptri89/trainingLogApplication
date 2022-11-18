@@ -1,24 +1,28 @@
 package ui;
 
-// citation for AlarmSystem here **
+// used code from AlarmControllerUI class in https://github.students.cs.ubc.ca/CPSC210/AlarmSystem.git
+
 
 import model.*;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
 // Project Requirements:
-// TODO: display all X's added to Y
-// TODO: be able to add X to Y
-// TODO: be able to save current X's to file
+// display all X's added to Y - done
+// be able to add X to Y - done
+// be able to save current X's to file - done
 // TODO: be able to load previous X's from file
 // TODO: be able to filter workouts by type
 // TODO: add a splash screen or an image that appears after
@@ -38,9 +42,8 @@ public class TrainingLogViewerUI extends JFrame {
     private JInternalFrame displayArea;
     private FilterByTypePopUp filter;
     private JInternalFrame filterDisplay;
-
-
-
+    private ImageIcon happyTraining;
+    private ImageIcon newHappyTraining;
 
 
     // constructor constructs window for displaying workouts in a training log and
@@ -50,23 +53,25 @@ public class TrainingLogViewerUI extends JFrame {
         desktop = new JDesktopPane();
         desktop.addMouseListener(new DesktopFocusAction());
         controlPanel = new JInternalFrame("Training Log Viewer", false, false,
-                false,false);
+                false, false);
         controlPanel.setLayout(new BorderLayout());
         displayArea = new JInternalFrame("Display Area", false, false, false,
                 false);
-        filterDisplay = new JInternalFrame("Filtered Workouts", false,false,false,
+        filterDisplay = new JInternalFrame("Filtered Workouts", false, false, false,
                 false);
+
+        happyTraining =
+                new ImageIcon(new ImageIcon(getClass().getResource("HappyTraining.jpg")).getImage()
+                        .getScaledInstance(110,80,Image.SCALE_DEFAULT));
 
         setContentPane(desktop);
         setSize(WIDTH, HEIGHT);
 
         addButtons();
 
-        displayArea.setLayout(new GridLayout(ROWS,1)); // TODO: how to set this up with no need for ROWS?
-        displayArea.setBounds(0, 200, WIDTH, HEIGHT);
-        displayArea.pack();
-        displayArea.setVisible(true);
-        desktop.add(displayArea, BorderLayout.NORTH);
+        setUpDisplayArea();
+
+        setUpFilterDisplay();
 
 
         controlPanel.pack();
@@ -81,10 +86,12 @@ public class TrainingLogViewerUI extends JFrame {
 
     }
 
+
+
     // EFFECTS: helper to add buttons for TrainingLogViewer
     private void addButtons() {
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(2,3));
+        buttonPanel.setLayout(new GridLayout(2, 3));
         buttonPanel.add(new JButton(new AddNewSwimAction()));
         buttonPanel.add(new JButton(new AddNewBikeAction()));
         buttonPanel.add(new JButton(new AddNewRunAction()));
@@ -96,6 +103,17 @@ public class TrainingLogViewerUI extends JFrame {
         controlPanel.add(buttonPanel, BorderLayout.SOUTH);
 
     }
+
+    private void setUpDisplayArea() {
+        displayArea.setLayout(new GridLayout(ROWS, 1)); // TODO: how to set this up with no need for ROWS?
+        displayArea.setBounds(0, 200, WIDTH, HEIGHT);
+        displayArea.pack();
+        displayArea.setVisible(true);
+        desktop.add(displayArea, BorderLayout.NORTH);
+    }
+
+
+
 
     // MODIFIES: this
     // EFFECTS: represents action to be taken when user wants to add a new swim workout to the
@@ -134,6 +152,8 @@ public class TrainingLogViewerUI extends JFrame {
             trainingLog.addWorkout(newSwim, workouts);
 
             displayWorkout(newSwim, displayArea);
+            displayImage();
+
 
         }
     }
@@ -176,6 +196,8 @@ public class TrainingLogViewerUI extends JFrame {
             trainingLog.addWorkout(newBike, workouts);
 
             displayWorkout(newBike, displayArea);
+            displayImage();
+
 
         }
     }
@@ -189,7 +211,6 @@ public class TrainingLogViewerUI extends JFrame {
             super("Add New Run");
         }
 
-        // TODO: ask if I can suppress checkstyle here
         @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -214,16 +235,18 @@ public class TrainingLogViewerUI extends JFrame {
                     JOptionPane.showInputDialog("Please rate the difficulty of your workout from 1-10: ");
             runDistance = JOptionPane.showInputDialog("Please input your distance: ");
 
-            newRun = new Run(type,title,date,Integer.parseInt(runHR), Integer.parseInt(runPaceMins),
+            newRun = new Run(type, title, date, Integer.parseInt(runHR), Integer.parseInt(runPaceMins),
                     Integer.parseInt(runPaceSecs), Integer.parseInt(runTime), Integer.parseInt(runPerceivedDifficulty),
                     Double.parseDouble(runDistance));
 
             trainingLog.addWorkout(newRun, workouts);
 
             displayWorkout(newRun, displayArea);
+            displayImage();
 
         }
     }
+
 
     // EFFECTS: displays the type, title and date of w in the display section of the main window
     private void displayWorkout(Workout w, JInternalFrame frame) {
@@ -237,6 +260,10 @@ public class TrainingLogViewerUI extends JFrame {
 
     }
 
+    private void displayImage() {
+        JOptionPane.showMessageDialog(desktop, "Thanks for recording a workout!", "Workout Message",
+                JOptionPane.INFORMATION_MESSAGE, happyTraining);
+    }
 
 
     // TODO: AFTER THIS CLASS AND THE ASSOCIATED METHODS WORK FINISH README FILE
@@ -254,19 +281,18 @@ public class TrainingLogViewerUI extends JFrame {
             controlPanel.add(filter, BorderLayout.EAST);
             controlPanel.pack();
             controlPanel.setVisible(true);
-
-            displayArea.setVisible(false);
-
-            filterDisplay.setLayout(new GridLayout(ROWS, 1)); // TODO: how to set this up with no need for ROWS?
-            filterDisplay.setBounds(0, 200, WIDTH, HEIGHT);
-            filterDisplay.pack();
-            filterDisplay.setVisible(true);
-
-            if (trainingLog.getTrainingLog().size() == 0) {
-                filterDisplay.add(new JLabel("No workouts added yet."));
-                filterDisplay.setVisible(true);
-            }
         }
+    }
+
+    // EFFECTS: sets up the new frame for filtered workouts and hides the regular display area
+    private void setUpFilterDisplay() {
+        desktop.add(filterDisplay);
+        filterDisplay.setLayout(new GridLayout(ROWS, 1)); // TODO: how to set this up with no need for ROWS?
+        filterDisplay.setBounds(200, 200, WIDTH, HEIGHT);
+        filterDisplay.setSize(WIDTH, HEIGHT);
+        filterDisplay.pack();
+        filterDisplay.setVisible(true);
+
     }
 
     // MODIFIES: FilterByTypePopUp
@@ -291,10 +317,16 @@ public class TrainingLogViewerUI extends JFrame {
         // EFFECTS: filters workouts in current workouts list by type "Swim"
         @Override
         public void actionPerformed(ActionEvent e) {
-            for (Workout w : trainingLog.getTrainingLog()) {
-                if (w.getType().equals("Swim")) {
-                    displayWorkout(w, filterDisplay);
-                    filterDisplay.setVisible(true);
+
+            if (trainingLog.getTrainingLog().size() == 0) {
+                filterDisplay.add(new JLabel("No workouts added yet."));
+                filterDisplay.setVisible(true);
+            } else {
+                for (Workout w : trainingLog.getTrainingLog()) {
+                    if (w.getType().equals("Swim")) {
+                        displayWorkout(w, filterDisplay);
+                        filterDisplay.setVisible(true);
+                    }
                 }
             }
         }
@@ -313,10 +345,16 @@ public class TrainingLogViewerUI extends JFrame {
         // EFFECTS: filters workouts in current workouts list by type "Bike"
         @Override
         public void actionPerformed(ActionEvent e) {
-            for (Workout w : trainingLog.getTrainingLog()) {
-                if (w.getType().equals("Bike")) {
-                    displayWorkout(w, filterDisplay);
-                    filterDisplay.setVisible(true);
+
+            if (trainingLog.getTrainingLog().size() == 0) {
+                filterDisplay.add(new JLabel("No workouts added yet."));
+                filterDisplay.setVisible(true);
+            } else {
+                for (Workout w : trainingLog.getTrainingLog()) {
+                    if (w.getType().equals("Bike")) {
+                        displayWorkout(w, filterDisplay);
+                        filterDisplay.setVisible(true);
+                    }
                 }
             }
         }
@@ -334,10 +372,16 @@ public class TrainingLogViewerUI extends JFrame {
         // EFFECTS: filters workouts in current workouts list by type "Run"
         @Override
         public void actionPerformed(ActionEvent e) {
-            for (Workout w : trainingLog.getTrainingLog()) {
-                if (w.getType().equals("Run")) {
-                    displayWorkout(w, filterDisplay);
-                    filterDisplay.setVisible(true);
+
+            if (trainingLog.getTrainingLog().size() == 0) {
+                filterDisplay.add(new JLabel("No workouts added yet."));
+                filterDisplay.setVisible(true);
+            } else {
+                for (Workout w : trainingLog.getTrainingLog()) {
+                    if (w.getType().equals("Run")) {
+                        displayWorkout(w, filterDisplay);
+                        filterDisplay.setVisible(true);
+                    }
                 }
             }
         }
@@ -368,8 +412,10 @@ public class TrainingLogViewerUI extends JFrame {
     }
 
 
-   // EFFECTS: creates action to load previously saved workouts
+    // EFFECTS: creates action to load previously saved workouts
     private class LoadPreviousAction extends AbstractAction {
+        TrainingLog loadedFromFile;
+        ArrayList<Workout> loadedWorkouts;
 
         LoadPreviousAction() {
             super("Load Previous Training Log");
@@ -379,34 +425,39 @@ public class TrainingLogViewerUI extends JFrame {
         // EFFECTS: loads previously saved workouts, adds them to the current list of workouts and displays them
         @Override
         public void actionPerformed(ActionEvent e) {
-            jsonReader = new JsonReader(JSON_STORE);
-            TrainingLog loadedFromFile;
-            ArrayList<Workout> loadedWorkouts;
 
             try {
+                jsonReader = new JsonReader(JSON_STORE);
                 loadedFromFile = jsonReader.read();
                 System.out.println("Loaded workouts from " + JSON_STORE);
-                loadedWorkouts = loadedFromFile.getTrainingLog();
-                workouts.addAll(loadedWorkouts);
-                for (Workout w :loadedWorkouts) {
-                    displayWorkout(w, filterDisplay);
-                }
             } catch (IOException exception) {
                 System.out.println("Unable to read from file: " + JSON_STORE);
+            } finally {
+                displayAllLoaded();
             }
 
+        }
+
+        private void displayAllLoaded() {
+            loadedWorkouts = loadedFromFile.getTrainingLog();
+            workouts.addAll(loadedWorkouts);
+            for (Workout w : loadedWorkouts) {
+                displayWorkout(w, displayArea);
+
+
+            }
         }
     }
 
 
-
-    // EFFECTS: represents action to be taken when user clicks desktop to switch focus
-    // (needed for key handling)
+        // EFFECTS: represents action to be taken when user clicks desktop to switch focus
+        // (needed for key handling)
     private class DesktopFocusAction extends MouseAdapter {
         @Override
-        public void mouseClicked(MouseEvent e) {
+            public void mouseClicked(MouseEvent e) {
             TrainingLogViewerUI.this.requestFocusInWindow();
         }
     }
 
 }
+

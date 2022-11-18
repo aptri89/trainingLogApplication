@@ -1,17 +1,47 @@
 {
     "title": "My Training Log",
-    "trainingLog": [{
-        "date": "October25,202",
-        "trainingLoadValue": 102,
-        "avgRunPaceMins": 0,
-        "distance": 34,
-        "avgBikeSpeed": 23,
-        "totalTime": 34,
-        "name": "Biking",
-        "perceivedDifficulty": 3,
-        "avgSwimPace": 0,
-        "type": "Bike",
-        "avgRunPaceSecs": 0,
-        "avgHeartRate": 123
-    }]
+    "trainingLog": [
+        {
+            "date": "Oct",
+            "trainingLoadValue": 15,
+            "avgRunPaceMins": 0,
+            "distance": 6,
+            "avgBikeSpeed": 4,
+            "totalTime": 3,
+            "name": "Biking",
+            "perceivedDifficulty": 5,
+            "avgSwimPace": 0,
+            "type": "Bike",
+            "avgRunPaceSecs": 0,
+            "avgHeartRate": 2
+        },
+        {
+            "date": "Dec",
+            "trainingLoadValue": 125,
+            "avgRunPaceMins": 0,
+            "distance": 3,
+            "avgBikeSpeed": 0,
+            "totalTime": 25,
+            "name": "Swimming",
+            "perceivedDifficulty": 5,
+            "avgSwimPace": 109,
+            "type": "Swim",
+            "avgRunPaceSecs": 0,
+            "avgHeartRate": 124
+        },
+        {
+            "date": "Oct",
+            "trainingLoadValue": 14,
+            "avgRunPaceMins": 0,
+            "distance": 2,
+            "avgBikeSpeed": 24,
+            "totalTime": 7,
+            "name": "Biking",
+            "perceivedDifficulty": 2,
+            "avgSwimPace": 0,
+            "type": "Bike",
+            "avgRunPaceSecs": 0,
+            "avgHeartRate": 124
+        }
+    ]
 }
