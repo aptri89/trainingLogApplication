@@ -8,11 +8,3 @@ public class Main {
     }
 }
 
-
-
-// original code for UI
-//try {
-//        new TrainingLogApp();
-//        } catch (FileNotFoundException e) {
-//        System.out.println("Unable to run application: file not found");
-//        }

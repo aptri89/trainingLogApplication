@@ -23,9 +23,9 @@ import java.util.ArrayList;
 // display all X's added to Y - done
 // be able to add X to Y - done
 // be able to save current X's to file - done
-// TODO: be able to load previous X's from file
-// TODO: be able to filter workouts by type
-// TODO: add a splash screen or an image that appears after
+// be able to load previous X's from file - done
+// be able to filter workouts by type - done
+// add an image that appears after adding a workout - done
 
 // represents application's main window frame
 public class TrainingLogViewerUI extends JFrame {
