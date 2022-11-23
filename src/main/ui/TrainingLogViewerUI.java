@@ -74,12 +74,16 @@ public class TrainingLogViewerUI extends JFrame {
 
     }
 
+    // MODIFIES: controlPanel
+    // EFFECTS: sets the visibility of the controlPanel and adds it to the desktop
     private void setControlPanel() {
         controlPanel.pack();
         controlPanel.setVisible(true);
         desktop.add(controlPanel, BorderLayout.SOUTH);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds a WindowListener that prints events from the EventLog when the user exits the GUI
     private void addTrainingLogWindowListener() {
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override

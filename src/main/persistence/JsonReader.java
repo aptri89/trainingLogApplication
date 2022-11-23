@@ -68,6 +68,7 @@ public class JsonReader {
     // Note: TA suppressed warnings while grading my phase 2 and did not tell me to change it so that is why I have
     // suppressed warnings for this method
 
+    // TODO: improve this method so it fits checkstyle
     // MODIFIES: tl
     // EFFECTS: converts jsonObject to Workout and adds to tl
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
@@ -90,7 +91,7 @@ public class JsonReader {
             Bike bike = new Bike(type, name, date, avgHeartRate, totalTime,
                     avgBikeSpeed, perceivedDifficulty, distance);
             tl.getTrainingLog().add(bike);
-        } else if (type.equals("Run")) {
+        } else {
             int avgRunPaceMins = jsonObject.getInt("avgRunPaceMins");
             int avgRunPaceSecs = jsonObject.getInt("avgRunPaceSecs");
             Run run = new Run(type, name, date, avgHeartRate, avgRunPaceMins,

@@ -68,6 +68,28 @@ public class TrainingLogTest {
 
     }
 
+    @Test
+    public void testEventMessageForFilter() {
+        // stub
+    }
+
+    @Test
+    public void testEventMessageForAddWorkout() {
+        // stub
+    }
+
+    @Test
+    public void testEventMessageForSavingLog() {
+        // stub
+    }
+
+    @Test
+    public void testEventMessageForLoadingLog() {
+        // stub
+    }
+
+
+
 
 
 }
