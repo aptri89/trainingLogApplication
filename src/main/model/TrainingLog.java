@@ -6,7 +6,6 @@ package model;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
-
 import java.util.ArrayList;
 
 public class TrainingLog implements Writable {
@@ -26,7 +25,9 @@ public class TrainingLog implements Writable {
     // REQUIRES: workout is not null
     // MODIFIES: TrainingLog
     public void addWorkout(Workout workout, ArrayList<Workout> trainingLogName)  {
+
         trainingLogName.add(workout);
+        EventLog.getInstance().logEvent(new Event(workout.getType() + " workout added to training log!"));
     }
 
     // REQUIRES: title is not an empty string, tl is not an empty list
@@ -39,6 +40,18 @@ public class TrainingLog implements Writable {
             }
         }
         return specificLog;
+    }
+
+    // EFFECTS: returns a list of the workouts contained in this training log that have the specified type
+    public ArrayList<Workout> getWorkoutsWithType(String type) {
+        ArrayList<Workout> workoutsMatchingType = new ArrayList<>();
+        for (Workout w : this.trainingLog) {
+            if (w.getType().equals(type)) {
+                workoutsMatchingType.add(w);
+            }
+        }
+        EventLog.getInstance().logEvent(new Event("Filtered workouts by: " + type + "."));
+        return workoutsMatchingType;
     }
 
     public String getTitle() {
@@ -54,6 +67,7 @@ public class TrainingLog implements Writable {
         JSONObject json = new JSONObject();
         json.put("title", title);
         json.put("trainingLog", workoutsToJson());
+        EventLog.getInstance().logEvent(new Event("Saved training log " + title + " to file."));
         return json;
     }
 

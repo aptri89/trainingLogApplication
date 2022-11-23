@@ -1,31 +1,22 @@
 package ui;
 
 // used code from AlarmControllerUI class in https://github.students.cs.ubc.ca/CPSC210/AlarmSystem.git
+// used code from https://stackoverflow.com/questions/60516720/java-how-to-print-message-when-a-jframe-is-closed
 
 
 import model.*;
+import model.Event;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
+import java.awt.event.*;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-// Project Requirements:
-// display all X's added to Y - done
-// be able to add X to Y - done
-// be able to save current X's to file - done
-// be able to load previous X's from file - done
-// be able to filter workouts by type - done
-// add an image that appears after adding a workout - done
 
 // represents application's main window frame
 public class TrainingLogViewerUI extends JFrame {
@@ -48,7 +39,6 @@ public class TrainingLogViewerUI extends JFrame {
     // constructor constructs window for displaying workouts in a training log and
     // button panel for actions that can be performed
     public TrainingLogViewerUI() {
-
         desktop = new JDesktopPane();
         desktop.addMouseListener(new DesktopFocusAction());
         controlPanel = new JInternalFrame("Training Log Viewer", false, false,
@@ -73,16 +63,33 @@ public class TrainingLogViewerUI extends JFrame {
         setUpFilterDisplay();
 
 
-        controlPanel.pack();
-        controlPanel.setVisible(true);
-        desktop.add(controlPanel, BorderLayout.SOUTH);
-
+        setControlPanel();
 
         trainingLog = new TrainingLog("My Training Log", workouts);
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         setVisible(true);
+        addTrainingLogWindowListener();
 
+
+    }
+
+    private void setControlPanel() {
+        controlPanel.pack();
+        controlPanel.setVisible(true);
+        desktop.add(controlPanel, BorderLayout.SOUTH);
+    }
+
+    private void addTrainingLogWindowListener() {
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                for (Event e : EventLog.getInstance()) {
+                    System.out.println(e.getDescription().toString());
+                }
+                System.exit(0);
+            }
+        });
     }
 
 
@@ -130,22 +137,15 @@ public class TrainingLogViewerUI extends JFrame {
         public void actionPerformed(ActionEvent e) {
             Swim newSwim;
             String type = "Swim";
-            String title;
-            String date;
-            String swimHR;
-            String swimTime;
-            String swimPace;
-            String swimPerceivedDifficulty;
-            String swimDistance;
-
-            title = JOptionPane.showInputDialog("Please input a title: ");
-            date = JOptionPane.showInputDialog("Please input the date (ex. October24,2022): ");
-            swimHR = JOptionPane.showInputDialog("Please input your average heart rate: ");
-            swimTime = JOptionPane.showInputDialog("Please input total time: ");
-            swimPace = JOptionPane.showInputDialog("Please input your pace per 100m in seconds: ");
-            swimPerceivedDifficulty =
+            String title = JOptionPane.showInputDialog("Please input a title: ");
+            String date = JOptionPane.showInputDialog("Please input the date (ex. October24,2022): ");
+            String swimHR = JOptionPane.showInputDialog("Please input your average heart rate: ");
+            String swimTime = JOptionPane.showInputDialog("Please input total time: ");
+            String swimPace = JOptionPane.showInputDialog("Please input your pace per 100m in seconds: ");
+            String swimPerceivedDifficulty =
                     JOptionPane.showInputDialog("Please rate the difficulty of your workout from 1-10:  ");
-            swimDistance = JOptionPane.showInputDialog("Please input your distance: ");
+            String swimDistance = JOptionPane.showInputDialog("Please input your distance: ");
+
 
             newSwim = new Swim(type, title, date, Integer.parseInt(swimHR), Integer.parseInt(swimTime),
                     Integer.parseInt(swimPace), Integer.parseInt(swimPerceivedDifficulty),
@@ -175,22 +175,14 @@ public class TrainingLogViewerUI extends JFrame {
         public void actionPerformed(ActionEvent e) {
             Bike newBike;
             String type = "Bike";
-            String title;
-            String date;
-            String bikeHR;
-            String bikeTime;
-            String bikeSpeed;
-            String bikePerceivedDifficulty;
-            String bikeDistance;
-
-            title = JOptionPane.showInputDialog("Please input a title: ");
-            date = JOptionPane.showInputDialog("Please input the date (ex. October24,2022): ");
-            bikeHR = JOptionPane.showInputDialog("Please input your average heart rate: ");
-            bikeTime = JOptionPane.showInputDialog("Please input total time: ");
-            bikeSpeed = JOptionPane.showInputDialog("Please input your speed in km/hr: ");
-            bikePerceivedDifficulty =
+            String title = JOptionPane.showInputDialog("Please input a title: ");
+            String date = JOptionPane.showInputDialog("Please input the date (ex. October24,2022): ");
+            String bikeHR = JOptionPane.showInputDialog("Please input your average heart rate: ");
+            String bikeTime = JOptionPane.showInputDialog("Please input total time: ");
+            String bikeSpeed = JOptionPane.showInputDialog("Please input your speed in km/hr: ");
+            String bikePerceivedDifficulty =
                     JOptionPane.showInputDialog("Please rate the difficulty of your workout from 1-10:  ");
-            bikeDistance = JOptionPane.showInputDialog("Please input your distance: ");
+            String bikeDistance = JOptionPane.showInputDialog("Please input your distance: ");
 
             newBike = new Bike(type, title, date, Integer.parseInt(bikeHR), Integer.parseInt(bikeTime),
                     Double.parseDouble(bikeSpeed), Integer.parseInt(bikePerceivedDifficulty),
@@ -215,29 +207,19 @@ public class TrainingLogViewerUI extends JFrame {
         }
 
         // EFFECTS: achieves effects of the class
-        @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
         @Override
         public void actionPerformed(ActionEvent e) {
             Run newRun;
             String type = "Run";
-            String title;
-            String date;
-            String runHR;
-            String runTime;
-            String runPaceMins;
-            String runPaceSecs;
-            String runPerceivedDifficulty;
-            String runDistance;
-
-            title = JOptionPane.showInputDialog("Please input a title: ");
-            date = JOptionPane.showInputDialog("Please input the date (ex. October24,2022): ");
-            runHR = JOptionPane.showInputDialog("Please input your average heart rate: ");
-            runTime = JOptionPane.showInputDialog("Please input total time: ");
-            runPaceMins = JOptionPane.showInputDialog("Please input the minutes component of your run speed: ");
-            runPaceSecs = JOptionPane.showInputDialog("Please input the seconds component of your run speed: ");
-            runPerceivedDifficulty =
+            String title = JOptionPane.showInputDialog("Please input a title: ");
+            String date = JOptionPane.showInputDialog("Please input the date (ex. October24,2022): ");
+            String runHR = JOptionPane.showInputDialog("Please input your average heart rate: ");
+            String runTime = JOptionPane.showInputDialog("Please input total time: ");
+            String runPaceMins = JOptionPane.showInputDialog("Please input the minutes component of your run speed: ");;
+            String runPaceSecs = JOptionPane.showInputDialog("Please input the seconds component of your run speed: ");
+            String runPerceivedDifficulty =
                     JOptionPane.showInputDialog("Please rate the difficulty of your workout from 1-10: ");
-            runDistance = JOptionPane.showInputDialog("Please input your distance: ");
+            String runDistance = JOptionPane.showInputDialog("Please input your distance: ");
 
             newRun = new Run(type, title, date, Integer.parseInt(runHR), Integer.parseInt(runPaceMins),
                     Integer.parseInt(runPaceSecs), Integer.parseInt(runTime), Integer.parseInt(runPerceivedDifficulty),
@@ -271,7 +253,7 @@ public class TrainingLogViewerUI extends JFrame {
     }
 
 
-    // TODO: AFTER THIS CLASS AND THE ASSOCIATED METHODS WORK FINISH README FILE
+
     // EFFECTS: displays only workouts with specified type in filterDisplay window
     private class FilterByTypeAction extends AbstractAction {
 
@@ -294,7 +276,7 @@ public class TrainingLogViewerUI extends JFrame {
     // EFFECTS: sets up the new frame for filtered workouts
     private void setUpFilterDisplay() {
         desktop.add(filterDisplay);
-        filterDisplay.setLayout(new GridLayout(ROWS, 1)); // TODO: how to set this up with no need for ROWS?
+        filterDisplay.setLayout(new GridLayout(ROWS, 1)); // TODO: how to set this up better?
         filterDisplay.setBounds(200, 200, WIDTH, HEIGHT);
         filterDisplay.setSize(WIDTH, HEIGHT);
         filterDisplay.pack();
@@ -324,16 +306,16 @@ public class TrainingLogViewerUI extends JFrame {
         // EFFECTS: filters workouts in current workouts list by type "Swim"
         @Override
         public void actionPerformed(ActionEvent e) {
+            ArrayList<Workout> swimWorkouts;
 
             if (trainingLog.getTrainingLog().size() == 0) {
                 filterDisplay.add(new JLabel("No workouts added yet."));
                 filterDisplay.setVisible(true);
             } else {
-                for (Workout w : trainingLog.getTrainingLog()) {
-                    if (w.getType().equals("Swim")) {
-                        displayWorkout(w, filterDisplay);
-                        filterDisplay.setVisible(true);
-                    }
+                swimWorkouts = trainingLog.getWorkoutsWithType("Swim");
+                for (Workout s : swimWorkouts) {
+                    displayWorkout(s, filterDisplay);
+                    filterDisplay.setVisible(true);
                 }
             }
         }
@@ -342,6 +324,7 @@ public class TrainingLogViewerUI extends JFrame {
 
     // EFFECTS: creates action that filters workouts in current workouts list by type "Bike"
     private class BikeFilterAction extends AbstractAction {
+        ArrayList<Workout> bikeWorkouts;
 
         BikeFilterAction() {
             super("Filter By Type: Bike");
@@ -352,24 +335,24 @@ public class TrainingLogViewerUI extends JFrame {
         // EFFECTS: filters workouts in current workouts list by type "Bike"
         @Override
         public void actionPerformed(ActionEvent e) {
-
             if (trainingLog.getTrainingLog().size() == 0) {
                 filterDisplay.add(new JLabel("No workouts added yet."));
                 filterDisplay.setVisible(true);
             } else {
-                for (Workout w : trainingLog.getTrainingLog()) {
-                    if (w.getType().equals("Bike")) {
-                        displayWorkout(w, filterDisplay);
-                        filterDisplay.setVisible(true);
-                    }
+                bikeWorkouts = trainingLog.getWorkoutsWithType("Bike");
+                for (Workout b : bikeWorkouts) {
+                    displayWorkout(b, filterDisplay);
+                    filterDisplay.setVisible(true);
                 }
             }
         }
     }
 
 
+
     // EFFECTS: creates action that filters workouts in current workouts list by type "Run"
     private class RunFilterAction extends AbstractAction {
+        ArrayList<Workout> runWorkouts;
 
         RunFilterAction() {
             super("Filter By Type: Run");
@@ -384,11 +367,10 @@ public class TrainingLogViewerUI extends JFrame {
                 filterDisplay.add(new JLabel("No workouts added yet."));
                 filterDisplay.setVisible(true);
             } else {
-                for (Workout w : trainingLog.getTrainingLog()) {
-                    if (w.getType().equals("Run")) {
-                        displayWorkout(w, filterDisplay);
-                        filterDisplay.setVisible(true);
-                    }
+                runWorkouts = trainingLog.getWorkoutsWithType("Run");
+                for (Workout r : runWorkouts) {
+                    displayWorkout(r, filterDisplay);
+                    filterDisplay.setVisible(true);
                 }
             }
         }
@@ -467,6 +449,7 @@ public class TrainingLogViewerUI extends JFrame {
             TrainingLogViewerUI.this.requestFocusInWindow();
         }
     }
+
 
 }
 

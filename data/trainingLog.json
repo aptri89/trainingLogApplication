@@ -3,45 +3,59 @@
     "trainingLog": [
         {
             "date": "Oct",
-            "trainingLoadValue": 15,
+            "trainingLoadValue": 24,
             "avgRunPaceMins": 0,
-            "distance": 6,
-            "avgBikeSpeed": 4,
-            "totalTime": 3,
-            "name": "Biking",
-            "perceivedDifficulty": 5,
+            "distance": 7,
+            "avgBikeSpeed": 0,
+            "totalTime": 4,
+            "name": "Swim",
+            "perceivedDifficulty": 6,
+            "avgSwimPace": 5,
+            "type": "Swim",
+            "avgRunPaceSecs": 0,
+            "avgHeartRate": 3
+        },
+        {
+            "date": "OCt",
+            "trainingLoadValue": 24,
+            "avgRunPaceMins": 0,
+            "distance": 7,
+            "avgBikeSpeed": 5,
+            "totalTime": 4,
+            "name": "Bike",
+            "perceivedDifficulty": 6,
             "avgSwimPace": 0,
             "type": "Bike",
             "avgRunPaceSecs": 0,
-            "avgHeartRate": 2
+            "avgHeartRate": 3
         },
         {
             "date": "Dec",
-            "trainingLoadValue": 125,
+            "trainingLoadValue": 24,
             "avgRunPaceMins": 0,
-            "distance": 3,
-            "avgBikeSpeed": 0,
-            "totalTime": 25,
-            "name": "Swimming",
-            "perceivedDifficulty": 5,
-            "avgSwimPace": 109,
-            "type": "Swim",
-            "avgRunPaceSecs": 0,
-            "avgHeartRate": 124
-        },
-        {
-            "date": "Oct",
-            "trainingLoadValue": 14,
-            "avgRunPaceMins": 0,
-            "distance": 2,
-            "avgBikeSpeed": 24,
-            "totalTime": 7,
-            "name": "Biking",
-            "perceivedDifficulty": 2,
+            "distance": 4,
+            "avgBikeSpeed": 5,
+            "totalTime": 4,
+            "name": "Bike",
+            "perceivedDifficulty": 6,
             "avgSwimPace": 0,
             "type": "Bike",
             "avgRunPaceSecs": 0,
-            "avgHeartRate": 124
+            "avgHeartRate": 123
+        },
+        {
+            "date": "Dec",
+            "trainingLoadValue": 15,
+            "avgRunPaceMins": 4,
+            "distance": 6,
+            "avgBikeSpeed": 0,
+            "totalTime": 3,
+            "name": "Run",
+            "perceivedDifficulty": 5,
+            "avgSwimPace": 0,
+            "type": "Run",
+            "avgRunPaceSecs": 5,
+            "avgHeartRate": 2
         }
     ]
 }

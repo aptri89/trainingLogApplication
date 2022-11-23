@@ -51,6 +51,7 @@ public class JsonReader {
         String title = jsonObject.getString("title");
         TrainingLog tl = new TrainingLog(title, newLog);
         addWorkouts(tl, jsonObject);
+        EventLog.getInstance().logEvent(new Event("Loaded training log: " + tl.getTitle() + " from file."));
         return tl;
     }
 

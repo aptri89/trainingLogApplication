@@ -56,4 +56,16 @@ every workout is added.
 - You can save the state of my application by clicking the Save Current Training Log button.  
 - You can reload the state of my application by clicking the Load Previous Training Log button. 
 
+# Phase 4: Task 2
+Swim workout added to training log!
+Bike workout added to training log!
+Filtered workouts by: Swim.
+Bike workout added to training log!
+Filtered workouts by: Bike.
+Run workout added to training log!
+Saved training log My Training Log to file.
+Loaded training log My Training Log from file.
+Filtered workouts by: Run.
+
+
  
