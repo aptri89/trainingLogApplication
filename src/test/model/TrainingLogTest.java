@@ -2,10 +2,12 @@ package model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import persistence.JsonReader;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class TrainingLogTest {
@@ -26,6 +28,7 @@ public class TrainingLogTest {
         listOfWorkoutsForLog.add(testSwimWorkout);
         listOfWorkoutsForLog.add(testBikeWorkout);
         listOfWorkoutsForLog.add(testRunWorkout);
+        EventLog.getInstance().clear();
     }
 
     @Test
@@ -70,22 +73,58 @@ public class TrainingLogTest {
 
     @Test
     public void testEventMessageForFilter() {
-        // stub
+        testTrainingLog.getWorkoutsWithType("Swim");
+        int index = 0;
+        for (Event e : EventLog.getInstance()) {
+            index += 1;
+            if (index == 2) {
+                assertEquals("Filtered workouts by: Swim.", e.getDescription());
+            }
+        }
+
     }
 
     @Test
     public void testEventMessageForAddWorkout() {
-        // stub
+        testTrainingLog.addWorkout(testSwimWorkout, testTrainingLog.getTrainingLog());
+        int index = 0;
+        for (Event e : EventLog.getInstance()) {
+            index += 1;
+            if (index == 2) {
+                assertEquals("Swim workout added to training log!", e.getDescription());
+            }
+        }
     }
 
     @Test
     public void testEventMessageForSavingLog() {
-        // stub
+        testTrainingLog.toJson();
+        int index = 0;
+        for (Event e : EventLog.getInstance()) {
+            index += 1;
+            if (index == 2) {
+                assertEquals("Saved training log: October17-23,2022 to file.", e.getDescription());
+            }
+        }
     }
 
     @Test
     public void testEventMessageForLoadingLog() {
-        // stub
+        testTrainingLog.toJson();
+        JsonReader reader = new JsonReader("./data/trainingLog.json");
+        try {
+            reader.read();
+            int index = 0;
+            for (Event e : EventLog.getInstance()) {
+                index += 1;
+                if (index == 3) {
+                    assertEquals("Loaded training log: " + testTrainingLog.getTitle() + " from file.",
+                            e.getDescription());
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Could not read from file.");
+        }
     }
 
 

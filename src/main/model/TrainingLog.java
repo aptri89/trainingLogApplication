@@ -67,7 +67,7 @@ public class TrainingLog implements Writable {
         JSONObject json = new JSONObject();
         json.put("title", title);
         json.put("trainingLog", workoutsToJson());
-        EventLog.getInstance().logEvent(new Event("Saved training log " + title + " to file."));
+        EventLog.getInstance().logEvent(new Event("Saved training log: " + title + " to file."));
         return json;
     }
 
