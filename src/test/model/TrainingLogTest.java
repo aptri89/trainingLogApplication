@@ -3,7 +3,10 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -108,12 +111,18 @@ public class TrainingLogTest {
         }
     }
 
+    // TODO: ask about this test (getting the correct title)
     @Test
     public void testEventMessageForLoadingLog() {
-        testTrainingLog.toJson();
         JsonReader reader = new JsonReader("./data/trainingLog.json");
+        JsonWriter writer = new JsonWriter("./data/trainingLog.json");
         try {
+            writer.open();
+            writer.write(testTrainingLog);
+            writer.close();
+            System.out.println("Saved " + testTrainingLog.getTitle() + " to " + "./data/trainingLog.json");
             reader.read();
+            System.out.println("Loaded " + testTrainingLog.getTitle() + " from " + "./data/trainingLog.json");
             int index = 0;
             for (Event e : EventLog.getInstance()) {
                 index += 1;
@@ -122,7 +131,9 @@ public class TrainingLogTest {
                             e.getDescription());
                 }
             }
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
+            System.out.println("Could not save to file.");
+        } catch (IOException e) {
             System.out.println("Could not read from file.");
         }
     }
