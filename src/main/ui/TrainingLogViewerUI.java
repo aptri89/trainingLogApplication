@@ -26,8 +26,6 @@ public class TrainingLogViewerUI extends JFrame {
     private JDesktopPane desktop;
     private JInternalFrame controlPanel;
     private static final String JSON_STORE = "./data/trainingLog.json";
-    private JsonWriter jsonWriter;
-    private JsonReader jsonReader;
     private TrainingLog trainingLog;
     private ArrayList<Workout> workouts = new ArrayList<>();
     private JInternalFrame displayArea;
@@ -281,7 +279,7 @@ public class TrainingLogViewerUI extends JFrame {
     private void setUpFilterDisplay() {
         desktop.add(filterDisplay);
         filterDisplay.setLayout(new GridLayout(ROWS, 1)); // TODO: how to set this up better?
-        filterDisplay.setBounds(200, 200, WIDTH, HEIGHT);
+        filterDisplay.setBounds(250, 200, WIDTH, HEIGHT);
         filterDisplay.setSize(WIDTH, HEIGHT);
         filterDisplay.pack();
         filterDisplay.setVisible(true);
@@ -312,6 +310,8 @@ public class TrainingLogViewerUI extends JFrame {
         public void actionPerformed(ActionEvent e) {
             ArrayList<Workout> swimWorkouts;
 
+            removePreviouslyFiltered();
+
             if (trainingLog.getTrainingLog().size() == 0) {
                 filterDisplay.add(new JLabel("No workouts added yet."));
                 filterDisplay.setVisible(true);
@@ -339,6 +339,8 @@ public class TrainingLogViewerUI extends JFrame {
         // EFFECTS: filters workouts in current workouts list by type "Bike"
         @Override
         public void actionPerformed(ActionEvent e) {
+            removePreviouslyFiltered();
+
             if (trainingLog.getTrainingLog().size() == 0) {
                 filterDisplay.add(new JLabel("No workouts added yet."));
                 filterDisplay.setVisible(true);
@@ -366,6 +368,7 @@ public class TrainingLogViewerUI extends JFrame {
         // EFFECTS: filters workouts in current workouts list by type "Run"
         @Override
         public void actionPerformed(ActionEvent e) {
+            removePreviouslyFiltered();
 
             if (trainingLog.getTrainingLog().size() == 0) {
                 filterDisplay.add(new JLabel("No workouts added yet."));
@@ -376,6 +379,16 @@ public class TrainingLogViewerUI extends JFrame {
                     displayWorkout(r, filterDisplay);
                     filterDisplay.setVisible(true);
                 }
+            }
+        }
+    }
+
+    private void removePreviouslyFiltered() {
+        int index = -1;
+        for (Component j : filterDisplay.getComponents()) {
+            index += 1;
+            if (j instanceof JLabel) {
+                filterDisplay.remove(index);
             }
         }
     }
@@ -391,12 +404,11 @@ public class TrainingLogViewerUI extends JFrame {
         // EFFECTS: saves the current state of the application (workouts added to the current list of workouts)
         @Override
         public void actionPerformed(ActionEvent e) {
-            jsonWriter = new JsonWriter(JSON_STORE);
+            JsonWriter jsonWriter = new JsonWriter(JSON_STORE);
             try {
                 jsonWriter.open();
                 jsonWriter.write(trainingLog);
                 jsonWriter.close();
-                System.out.println("Saved " + trainingLog.getTitle() + " to " + JSON_STORE);
             } catch (FileNotFoundException ex) {
                 System.out.println("Unable to write to file: " + JSON_STORE);
             }
@@ -418,11 +430,10 @@ public class TrainingLogViewerUI extends JFrame {
         // EFFECTS: loads previously saved workouts, adds them to the current list of workouts and displays them
         @Override
         public void actionPerformed(ActionEvent e) {
+            JsonReader jsonReader =  new JsonReader(JSON_STORE);
 
             try {
-                jsonReader = new JsonReader(JSON_STORE);
                 loadedFromFile = jsonReader.read();
-                System.out.println("Loaded workouts from " + JSON_STORE);
             } catch (IOException exception) {
                 System.out.println("Unable to read from file: " + JSON_STORE);
             } finally {

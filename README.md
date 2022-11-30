@@ -57,15 +57,24 @@ every workout is added.
 - You can reload the state of my application by clicking the Load Previous Training Log button. 
 
 # Phase 4: Task 2
-Swim workout added to training log!
-Bike workout added to training log!
-Filtered workouts by: Swim.
-Bike workout added to training log!
-Filtered workouts by: Bike.
-Run workout added to training log!
-Saved training log My Training Log to file.
-Loaded training log My Training Log from file.
-Filtered workouts by: Run.
+- Swim workout added to training log!
+- Bike workout added to training log!
+- Filtered workouts by: Swim.
+- Bike workout added to training log!
+- Filtered workouts by: Bike.
+- Run workout added to training log!
+- Saved training log My Training Log to file.
+- Loaded training log My Training Log from file.
+- Filtered workouts by: Run.
+
+# Phase 4 : Task 3
+- I would improve my filtering action classes by abstracting the behaviour into a method that each of them can call. 
+They currently perform some identical behaviour and I could instead have one method they each call with their 
+respective parameters related to either filtering by Swim, Bike or Run. 
+- The other option for the above bullet point is to move the behaviours in each filter action related to Swim, Bike
+and Run into their respective classes. This would improve cohesion but may make it more difficult to achieve the 
+intended filtering functionality. 
+- 
 
 
  
