@@ -73,8 +73,11 @@ They currently perform some identical behaviour and I could instead have one met
 respective parameters related to either filtering by Swim, Bike or Run. 
 - The other option for the above bullet point is to move the behaviours in each filter action related to Swim, Bike
 and Run into their respective classes. This would improve cohesion but may make it more difficult to achieve the 
-intended filtering functionality. 
-- 
+intended filtering functionality with everything separated. 
+- As there is not other issues related to coupling or cohesion that I can see from my UML diagram, I will comment on
+other aspects I want to improve on this project. My filter functionality currently does not have a working way to 
+remove from or clear the filter display. I worked on implementing this in Phase 3 but could not find a working 
+solution. 
 
 
  

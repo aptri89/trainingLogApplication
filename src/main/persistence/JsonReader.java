@@ -66,9 +66,8 @@ public class JsonReader {
     }
 
     // Note: TA suppressed warnings while grading my phase 2 and did not tell me to change it so that is why I have
-    // suppressed warnings for this method
+    // suppressed warnings for this method (there also doesn't seem to be a sensible way to modify it).
 
-    // TODO: improve this method so it fits checkstyle
     // MODIFIES: tl
     // EFFECTS: converts jsonObject to Workout and adds to tl
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
