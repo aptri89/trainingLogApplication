@@ -77,7 +77,9 @@ intended filtering functionality with everything separated.
 - As there is not other issues related to coupling or cohesion that I can see from my UML diagram, I will comment on
 other aspects I want to improve on this project. My filter functionality currently does not have a working way to 
 remove from or clear the filter display. I worked on implementing this in Phase 3 but could not find a working 
-solution. 
+solution. Finding a way to implement this would make the filtering function much more useful. The two options I see for
+fixing this are clearing the display each time filter is called (before the next set of filtered objects are added) or 
+giving the user another button to click if they want to clear the filter display area. 
 
 
  
